@@ -1,0 +1,81 @@
+<canvas></canvas>
+
+<div class="content">
+    <h1 class="pb-5">Create Game Page</h1>
+    <div class="container">
+        <div class="jumbotron py-0">
+            <div class="row">
+                <div class="col-md-4 mt-2">
+                    <div class="card">
+                        <img id="player_one_image" class="card-img-top" src="..." alt="Game creater's image">
+                        <div class="card-body">
+                            <p id="player_one_name" class="card-text">player_one_name</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4"></div>
+                <div class="col-md-4 mt-2">
+                    <div class="card">
+                        <img id="stage_image" class="card-img-top" src="..." alt="Map image">
+                        <div class="card-body">
+                            <p id="stage_name" class="card-text">stage_name</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <h2 class="text-center">Blobs in que!</h2>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+            <div class="row">
+                 <div class="col-md-4"></div>
+
+                <!-- Test Until Database is set up !-->
+                <div class="col-md-4">
+                    <div class="card">
+                        <img id="timmy_img" class="card-img-top" src="..." alt="timmy's Blob">
+                        <div class="card-body">
+                            <p class="card-text">timmy</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Test Over !-->
+
+                {{#each players}}
+                <div class="col-md-4">
+                    <div class="card">
+                        <img id="{{playerName}}_img" class="card-img-top" src="..." alt="{{playerName}}'s Blob">
+                        <div class="card-body">
+                            <p class="card-text">{{playerName}}</p>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+
+            <div class="row pt-2 pb-1">
+                <div class="col-md-2">
+                    <a href="/"><button id="join-btn" type="button" class="btn btn-primary">Return to menu</button></a>
+                </div>
+                <div class="col-md-8"></div>
+                <div class="col-md-2">
+                    <a href="#"><button id="join-btn" type="button" class="btn btn-primary">Start Game</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
+<script src="/js/index.js"></script>
+<script src="/js/canvas.js"></script>
