@@ -1,3 +1,16 @@
-.list-group-item {
-  line-height: 2.5;
+body, html { margin: 0; }
+
+canvas {
+    z-index: -1;
+    border: solid black 1px;
+    position: fixed;
+};
+
+.content {
+    z-index: 1;
+}
+
+#demo-gif {
+    height: 100;
+    width: 100;
 }
