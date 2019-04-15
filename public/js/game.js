@@ -59,6 +59,11 @@ function create() {
   player.setActive(true);
   playerTwo.setActive(true);
 
+  player.body.maxVelocity.set(160);
+  playerTwo.body.maxVelocity.set(160);
+  player.body.drag.set(150);
+  playerTwo.body.drag.set(150);
+
   player.body.collideWorldBounds = true;
   playerTwo.body.collideWorldBounds = true;
 
@@ -74,10 +79,10 @@ function update() {
   if (gameOver) {
     player.destroy();
     playerTwo.destroy();
-    // player.setVelocityX(0);
-    // player.setVelocityY(0);
-    // playerTwo.setVelocityX(0);
-    // playerTwo.setVelocityY(0);
+    // player.setAccelerationX(0);
+    // player.setAccelerationY(0);
+    // playerTwo.setAccelerationX(0);
+    // playerTwo.setAccelerationY(0);
     return;
   }
 
@@ -104,80 +109,64 @@ function update() {
   }
 
   if (cursors.left.isDown) {
-    player.setVelocityX(-160);
+    player.setAccelerationX(-160);
   } else if (cursors.right.isDown) {
-    player.setVelocityX(160);
+    player.setAccelerationX(160);
   } else {
-    player.setVelocityX(0);
+    player.setAccelerationX(0);
   }
   if (cursors.up.isDown) {
-    player.setVelocityY(-160);
+    player.setAccelerationY(-160);
   } else if (cursors.down.isDown) {
-    player.setVelocityY(160);
+    player.setAccelerationY(160);
   } else {
-    player.setVelocityY(0);
+    player.setAccelerationY(0);
   }
 
   if (this.key_A.isDown) {
-    playerTwo.setVelocityX(-160);
+    playerTwo.setAccelerationX(-160);
   } else if (this.key_D.isDown) {
-    playerTwo.setVelocityX(160);
+    playerTwo.setAccelerationX(160);
   } else {
-    playerTwo.setVelocityX(0);
+    playerTwo.setAccelerationX(0);
   }
   if (this.key_W.isDown) {
-    playerTwo.setVelocityY(-160);
+    playerTwo.setAccelerationY(-160);
   } else if (this.key_S.isDown) {
-    playerTwo.setVelocityY(160);
+    playerTwo.setAccelerationY(60);
   } else {
-    playerTwo.setVelocityY(0);
+    playerTwo.setAccelerationY(0);
   }
 
-  if (player.body.touching.right) {
-    setTimeout(function() {
-      player.body.velocity.x = Math.floor(Math.random() * (-490 + -510 + 1)) + -510;
-    }, 50);
-  }
+//   if (player.body.touching.right) {
+//     player.body.acceleration.x = -50;
+//   }
 
-  if (player.body.touching.left) {
-    setTimeout(function() {
-      player.body.velocity.x = Math.floor(Math.random() * (510 + 490 + 1)) + 490;
-    }, 50);
-  }
+//   if (player.body.touching.left) {
+//     player.body.acceleration.x = 50;
+//   }
 
-  if (player.body.touching.down) {
-    setTimeout(function() {
-      player.body.velocity.y = Math.floor(Math.random() * (-490 + -510 + 1)) + -510;
-    }, 50);
-  }
+//   if (player.body.touching.down) {
+//     player.body.acceleration.y = -50;
+//   }
 
-  if (player.body.touching.up) {
-    setTimeout(function() {
-      player.body.velocity.y = Math.floor(Math.random() * (510 + 490 + 1)) + 490;
-    }, 50);
-  }
+//   if (player.body.touching.up) {
+//     player.body.acceleration.y = 50;
+//   }
 
-  if (playerTwo.body.touching.right) {
-    setTimeout(function() {
-      playerTwo.body.velocity.x = Math.floor(Math.random() * (-490 + -510 + 1)) + -510;
-    }, 50);
-  }
+//   if (playerTwo.body.touching.right) {
+//     playerTwo.body.acceleration.x = -50;
+//   }
 
-  if (playerTwo.body.touching.left) {
-    setTimeout(function() {
-      playerTwo.body.velocity.x = Math.floor(Math.random() * (510 + 490 + 1)) + 490;
-    }, 50);
-  }
+//   if (player.body.touching.left) {
+//     playerTwo.body.acceleration.x = 50;
+//   }
 
-  if (playerTwo.body.touching.down) {
-    setTimeout(function() {
-      playerTwo.body.velocity.y = Math.floor(Math.random() * (-490 + -510 + 1)) + -510;
-    }, 50);
-  }
+//   if (player.body.touching.down) {
+//     playerTwo.body.acceleration.y = -50;
+//   }
 
-  if (playerTwo.body.touching.up) {
-    setTimeout(function() {
-      playerTwo.body.velocity.y = Math.floor(Math.random() * (510 + 490 + 1)) + 490;
-    }, 50);
-  }
+//   if (player.body.touching.up) {
+//     playerTwo.body.acceleration.y = 50;
+//   }
 }
