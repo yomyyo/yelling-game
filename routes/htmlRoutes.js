@@ -15,7 +15,6 @@ module.exports = function (app) {
     res.render("create-game");
   });
 
-<<<<<<< HEAD
   //Load BLOBTEST page
   app.get("/blobTest", function(req, res) {
     res.render("blobTest");
@@ -30,8 +29,6 @@ module.exports = function (app) {
     });
   });
 
-=======
->>>>>>> 4fbf10b905a78a38459c3eb910264f42a66d2736
   // Render 404 page for any unmatched routes
   app.get("*", function (req, res) {
     res.render("404");
