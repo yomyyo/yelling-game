@@ -3,11 +3,12 @@ var db = require("../models");
 module.exports = function (app) {
   // Load index page
   app.get("/", function (req, res) {
-    db.Player.findAll({}).then((res)=>{
-      console.log(res);
+    db.Player.findAll({}).then((data)=>{
+      // console.log(res);
+      res.render("index", {
     });
-    res.render("index", {
     });
+    
   });
 
   //Load create game page
@@ -16,8 +17,8 @@ module.exports = function (app) {
   });
 
   //Load BLOBTEST page
-  app.get("/blobTest", function(req, res) {
-    res.render("blobTest");
+  app.get("/test", function(req, res) {
+    res.render("TEST");
   })
 
   // Load example page and pass in an example by id
