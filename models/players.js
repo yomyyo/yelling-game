@@ -3,6 +3,9 @@ module.exports = function(sequelize, DataTypes) {
     name: DataTypes.STRING,
     wins: DataTypes.INTEGER,
     losses: DataTypes.INTEGER
-  });
+  }, {
+    timestamp: false
+  }
+  );
   return Player;
 };

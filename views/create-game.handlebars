@@ -1,17 +1,23 @@
 <canvas></canvas>
 
+<div class="bg-modal">
+        <div class="modal-content">
+            <div class="close">+</div>
+            <form id="name-form" action="#">
+                <input id="name" type="text" placeholder="Screen Name">
+                <button id="send" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+
 <div class="content">
-    <h1 class="pb-5">Create Game Page</h1>
+    <h1 id="test" class="pb-5">Create Game Page</h1>
     <div class="container">
         <div class="jumbotron py-0">
             <div class="row">
                 <div class="col-md-4 mt-2">
-                    <div class="card">
-                        <img id="player_one_image" class="card-img-top" src="..." alt="Game creater's image">
-                        <div class="card-body">
-                            <p id="player_one_name" class="card-text">player_one_name</p>
-                        </div>
-                    </div>
+                        <a></a><button id="join-btn" class="btn btn-primary">Join Game</button></a>
                 </div>
                 <div class="col-md-4"></div>
                 <div class="col-md-4 mt-2">
@@ -31,38 +37,35 @@
                 <div class="col-md-4"></div>
             </div>
             <div class="row">
-                 <div class="col-md-4"></div>
-
-                <!-- Test Until Database is set up !-->
-                <div class="col-md-4">
+                 <div class="col-md-3"></div>
+                <div class="col-md-3">
                     <div class="card">
-                        <img id="timmy_img" class="card-img-top" src="..." alt="timmy's Blob">
+                        <img id="test_img" class="card-img-top" src="...">
                         <div class="card-body">
-                            <p class="card-text">timmy</p>
+                            <p id="player_one_name" player-connected="false" class="card-text">Waiting for player...</p>
+                            <p class="player_one_keypress"></p>
                         </div>
                     </div>
                 </div>
-                <!-- Test Over !-->
 
-                {{#each players}}
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="card">
-                        <img id="{{playerName}}_img" class="card-img-top" src="..." alt="{{playerName}}'s Blob">
+                        <img id="timmy_img" class="card-img-top" src="...">
                         <div class="card-body">
-                            <p class="card-text">{{playerName}}</p>
+                            <p id="player_two_name" data-player-connected="false" class="card-text">Waiting for player...</p>
+                            <p class="player_two_keypress"></p>
                         </div>
                     </div>
                 </div>
-                {{/each}}
             </div>
 
             <div class="row pt-2 pb-1">
                 <div class="col-md-2">
-                    <a href="/"><button id="join-btn" type="button" class="btn btn-primary">Return to menu</button></a>
+                    <a href="/"><button type="button" class="btn btn-primary">Return to menu</button></a>
                 </div>
                 <div class="col-md-8"></div>
                 <div class="col-md-2">
-                    <a href="#"><button id="join-btn" type="button" class="btn btn-primary">Start Game</button></a>
+                    <a href="#"><button id="start-btn" type="button" class="btn btn-primary">Start Game</button></a>
                 </div>
             </div>
         </div>
@@ -77,6 +80,9 @@
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
 <script src="/js/index.js"></script>
 <script src="/js/canvas.js"></script>
+<script src="/js/modal.js"></script>
 <script src="/socket.io/socket.io.js"></script>
+<script src="/js/io-listeners.js"> </script>

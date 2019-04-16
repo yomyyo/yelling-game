@@ -1,17 +1,7 @@
-<div class="bg-modal">
-        <div class="modal-content">
-            <div class="close">+</div>
-            <form id="name-form" action="create-game">
-                <input type="text" placeholder="Screen Name">
-                <button id="send" type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
-    </div>
-
 <canvas></canvas>
 
 <div class="content">
-    <h1 class="pb-5">Home Page</h1>
+    <h1 id="test" class="pb-5">Home Page</h1>
     <div class="container">
         <div class="jumbotron py-0">
             <div class="row">
@@ -32,11 +22,11 @@
             </div>
             <div class="row pt-2 pb-1">
                 <div class="col-md-6"></div>
+                <div class="col-md-3"></div>
                 <div class="col-md-3">
-                    <a href="#"><button id="join-btn" type="button" class="btn btn-primary">Join a Game</button></a>
-                </div>
-                <div class="col-md-3">
-                    <a></a><button id="create-btn" class="btn btn-primary">Create a Game</button></a>
+                    <form action="create-game">
+                        <button id="play-game" class="btn btn-primary">Play Game</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -50,4 +40,4 @@
 <script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
 <script src="/js/index.js"></script>
 <script src="/js/canvas.js"></script>
-<script src="/js/modal.js"></script>
+{{!-- <script src="/js/modal.js"></script> --}}
