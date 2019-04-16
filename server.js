@@ -37,26 +37,6 @@ if (process.env.NODE_ENV === "test") {
 }
 
 
-// // Handles our socket.io POST request
-// app.post("/api/newPlayer", async function (req, res) {
-//   db.Player.create({
-//     name: req.body.name,
-//     wins: 0,
-//     losses: 0
-//   }).then(function () {
-    
-//     io.emit('message', req.body);
-//     console.log(req.body.name);
-//     console.log(req.body.color);
-//     res.json(200);
-
-//     console.log("WE ARE IN THE IO SPACE")
-
-//   })
-// });
-
-
-
 
 //Set up socket.io connection
 io.on("connection", function (socket) {
@@ -67,6 +47,11 @@ io.on("connection", function (socket) {
     io.sockets.emit("receive_player", data);
     console.log("data.name: ", data.name);
   });
+
+  socket.on("player_key", function(data) {
+    io.sockets.emit("player_key", data);
+    console.log("Key pressed: ", data);
+  })
 
 })
 

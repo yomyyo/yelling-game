@@ -14,3 +14,4 @@ function addMessages(data) {
         $("#player_two_name").html(data.name);
     }
 }
+
