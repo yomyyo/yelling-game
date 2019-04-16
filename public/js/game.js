@@ -1,12 +1,13 @@
-
-
 /* eslint-disable linebreak-style */
 var config = {
   type: Phaser.AUTO,
   width: 600,
   height: 600,
   physics: {
-    default: "arcade"
+    default: "arcade",
+    arcade: {
+      debug: true
+    }
   },
   scene: {
     preload: preload,
@@ -26,12 +27,20 @@ var p1Lives = 3;
 var p2Lives = 3;
 var stateText;
 var gameOver = false;
+var livesOne;
+var livesTwo;
 
 function preload() {
-  this.load.image("blob", "../images/blobimg");
+  this.load.image("grass", "images/grass.png");
+  this.load.image("blob", "images/blobimg.jpg");
+  this.load.spritesheet("animatedBlob", "images/animate.png", {
+    frameWidth: 32,
+    frameHeight: 32
+  });
 }
 
 function create() {
+  this.add.image(300, 300, "grass");
   stateText = this.add.text(200, 300, " ", {
     font: "30px Arial",
     fill: "#fff"
@@ -41,14 +50,39 @@ function create() {
   bounds = new Phaser.Geom.Circle(300, 300, 250);
   graphics = this.add.graphics();
 
-  graphics.lineStyle(2, 0xffffff, 1);
+  graphics.lineStyle(5, 0x9400d3, 1);
   graphics.strokeCircleShape(bounds);
 
-  player = this.physics.add.sprite(100, 300, "blob");
+  player = this.physics.add.sprite(100, 300, "animatedBlob");
   player.setBounce(1);
+  player.setSize(10, 10);
+  player.setOffset(10, 22);
 
-  playerTwo = this.physics.add.sprite(400, 300, "blob");
+  this.anims.create({
+    key: "walk",
+    frames: this.anims.generateFrameNumbers("animatedBlob", {
+      start: 121,
+      end: 130
+    }),
+    frameRate: 15,
+    repeat: -1
+  });
+
+  this.anims.create({
+    key: "idle",
+    frames: this.anims.generateFrameNumbers("animatedBlob", {
+      start: 101,
+      end: 110
+    }),
+    frameRate: 10,
+    repeat: -1
+  });
+
+  playerTwo = this.physics.add.sprite(400, 300, "animatedBlob");
   playerTwo.setBounce(1);
+  playerTwo.setSize(10, 10);
+  playerTwo.setOffset(10, 22);
+
   cursors = this.input.keyboard.createCursorKeys();
 
   this.key_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -58,6 +92,9 @@ function create() {
 
   player.setActive(true);
   playerTwo.setActive(true);
+
+  player.setScale(3);
+  playerTwo.setScale(3);
 
   player.body.maxVelocity.set(160);
   playerTwo.body.maxVelocity.set(160);
@@ -109,64 +146,87 @@ function update() {
   }
 
   if (cursors.left.isDown) {
+    player.anims.play("walk", true);
     player.setAccelerationX(-160);
   } else if (cursors.right.isDown) {
     player.setAccelerationX(160);
-  } else {
-    player.setAccelerationX(0);
+    player.anims.play("walk", true);
   }
   if (cursors.up.isDown) {
     player.setAccelerationY(-160);
+    player.anims.play("walk", true);
   } else if (cursors.down.isDown) {
     player.setAccelerationY(160);
-  } else {
+    player.anims.play("walk", true);
+  }
+
+  if (
+    !cursors.left.isDown &&
+    !cursors.right.isDown &&
+    !cursors.up.isDown &&
+    !cursors.down.isDown
+  ) {
+    player.setAccelerationX(0);
     player.setAccelerationY(0);
+    player.anims.play("idle", true);
   }
 
   if (this.key_A.isDown) {
     playerTwo.setAccelerationX(-160);
+    playerTwo.anims.play("walk", true);
   } else if (this.key_D.isDown) {
     playerTwo.setAccelerationX(160);
-  } else {
-    playerTwo.setAccelerationX(0);
+    playerTwo.anims.play("walk", true);
   }
+
   if (this.key_W.isDown) {
     playerTwo.setAccelerationY(-160);
+    playerTwo.anims.play("walk", true);
   } else if (this.key_S.isDown) {
     playerTwo.setAccelerationY(60);
-  } else {
-    playerTwo.setAccelerationY(0);
+    playerTwo.anims.play("walk", true);
   }
 
-//   if (player.body.touching.right) {
-//     player.body.acceleration.x = -50;
-//   }
+  if (
+    !this.key_A.isDown &&
+    !this.key_D.isDown &&
+    !this.key_S.isDown &&
+    !this.key_W.isDown
+  ) {
+    playerTwo.setAccelerationX(0);
+    playerTwo.setAccelerationY(0);
+    playerTwo.anims.play("idle", true);
+  }
 
-//   if (player.body.touching.left) {
-//     player.body.acceleration.x = 50;
-//   }
+  //   if (player.body.touching.right) {
+  //     player.body.acceleration.x = -50;
+  //   }
 
-//   if (player.body.touching.down) {
-//     player.body.acceleration.y = -50;
-//   }
+  //   if (player.body.touching.left) {
+  //     player.body.acceleration.x = 50;
+  //   }
 
-//   if (player.body.touching.up) {
-//     player.body.acceleration.y = 50;
-//   }
+  //   if (player.body.touching.down) {
+  //     player.body.acceleration.y = -50;
+  //   }
 
-//   if (playerTwo.body.touching.right) {
-//     playerTwo.body.acceleration.x = -50;
-//   }
+  //   if (player.body.touching.up) {
+  //     player.body.acceleration.y = 50;
+  //   }
 
-//   if (player.body.touching.left) {
-//     playerTwo.body.acceleration.x = 50;
-//   }
+  //   if (playerTwo.body.touching.right) {
+  //     playerTwo.body.acceleration.x = -50;
+  //   }
 
-//   if (player.body.touching.down) {
-//     playerTwo.body.acceleration.y = -50;
-//   }
+  //   if (player.body.touching.left) {
+  //     playerTwo.body.acceleration.x = 50;
+  //   }
 
-//   if (player.body.touching.up) {
-//     playerTwo.body.acceleration.y = 50;
-//   }
+  //   if (player.body.touching.down) {
+  //     playerTwo.body.acceleration.y = -50;
+  //   }
+
+  //   if (player.body.touching.up) {
+  //     playerTwo.body.acceleration.y = 50;
+  //   }
 }
