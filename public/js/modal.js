@@ -1,22 +1,34 @@
 var socket = io();
 
-$("#create-btn").on("click", function() {
-    $(".bg-modal").css("display", "flex");
+$("#create-btn").on("click", function () {
+  $(".bg-modal").css("display", "flex");
 });
 
-$(".close").on("click", function() {
-    $(".bg-modal").css("display", "none");
+$(".close").on("click", function () {
+  $(".bg-modal").css("display", "none");
 });
 
 
 
-$(() => {
-    $("#send").click(()=>{
-        sendMessage({name: $("#name").val(), color: "#000000"});
-    })
-    getMessages()
-})
+// on click to trigger socket.io(add_player)
+$("#send").on("click", function () {
+  socket.emit("add_player", {
+    name: $("#name").val(),
+    color: "#000000"
+  })
+});
 
-socket.on('message', addMessages)
+socket.on("receive_player", addMessages);
+
+function addMessages(data) {
+  console.log("Add Messages Data", data);
+
+  console.log("Socket.id: ", socket.id);
 
 
+  sessionStorage.setItem(data.name, data.color);
+  console.log(sessionStorage.getItem(data.name));
+
+  // sessionStorage.setItem("name", data.name);
+  // console.log(sessionStorage.getItem("name"))
+}

@@ -37,12 +37,38 @@ if (process.env.NODE_ENV === "test") {
 }
 
 
+// // Handles our socket.io POST request
+// app.post("/api/newPlayer", async function (req, res) {
+//   db.Player.create({
+//     name: req.body.name,
+//     wins: 0,
+//     losses: 0
+//   }).then(function () {
+    
+//     io.emit('message', req.body);
+//     console.log(req.body.name);
+//     console.log(req.body.color);
+//     res.json(200);
+
+//     console.log("WE ARE IN THE IO SPACE")
+
+//   })
+// });
+
+
+
+
 //Set up socket.io connection
 io.on("connection", function (socket) {
-  console.log("USER ", socket + " CONNECTD WITH SOCKET IO");
+
+  console.log("Made socket connection: ", socket.id);
+
+  socket.on("add_player", function(data) {
+    io.sockets.emit("receive_player", data);
+    console.log("data.name: ", data.name);
+  });
+
 })
-
-
 
 
 // Starting the server, syncing our models ------------------------------------/
