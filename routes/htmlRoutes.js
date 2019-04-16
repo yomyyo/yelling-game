@@ -17,8 +17,8 @@ module.exports = function (app) {
   });
 
   //Load BLOBTEST page
-  app.get("/blobTest", function(req, res) {
-    res.render("blobTest");
+  app.get("/test", function(req, res) {
+    res.render("TEST");
   })
 
   // Load example page and pass in an example by id
