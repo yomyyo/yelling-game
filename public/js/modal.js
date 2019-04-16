@@ -25,11 +25,11 @@ function addMessages(data) {
   console.log("Add Messages Data", data);
 
   console.log("Socket.id: ", socket.id);
-
-
-  // sessionStorage.setItem(data.name, data.color);
-  // console.log(sessionStorage.getItem(data.name));
-
-  // sessionStorage.setItem("name", data.name);
-  // console.log(sessionStorage.getItem("name"))
 }
+
+$(document).on("keyup", function(data) {
+  console.log(data.key);
+  socket.emit("player_key", {
+    keyPressed: data.key
+  })
+})
