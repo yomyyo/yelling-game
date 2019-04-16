@@ -186,7 +186,7 @@ function update() {
   // checks to see if player 2 has left the ring, and if they have, take off a life. If no more lives, end game
   if (!bounds.contains(p2PointX, p2PointY)) {
     playerTwo.setPosition(300);
-    if (p2Lives > 0) {
+    if (p2Lives > 1) {
       p2Lives--;
       livesTwo.setText("Player 2 Lives: " + p2Lives);
     } else {
