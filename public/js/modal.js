@@ -10,13 +10,12 @@ $(".close").on("click", function () {
 });
 
 $("#start-btn").on("click", function () {
-  var gameScript = document.createElement('script');
-
-  gameScript.setAttribute('src', 'js/game.js');
-
-  $("#create-game").attr("class", "hidden")
-
-  document.head.appendChild(gameScript);
+  // var gameScript = document.createElement('script');
+  // gameScript.setAttribute('src', 'js/game.js');
+  // document.body.appendChild(gameScript);
+$("#create-game").attr("class", "hidden");
+  //Tell server to start the game
+  socket.emit("startGame");
 })
 
 
