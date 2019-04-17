@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "dontcare",
+    "password": "password",
     "database": "blobber_db",
     "host": "localhost",
     "dialect": "mysql"
