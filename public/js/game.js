@@ -3,6 +3,7 @@
 
 var config = {
   type: Phaser.AUTO,
+  parent: "blob-game",
   width: 600,
   height: 600,
   physics: {
