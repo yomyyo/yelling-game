@@ -236,6 +236,13 @@ function update() {
 
   // movement using arrow keys for player 1
 
+
+
+
+
+
+
+
   //left and right
   if (cursors.left.isDown) {
     player.anims.play("walk", true);
@@ -254,6 +261,8 @@ function update() {
     player.anims.play("walk", true);
   }
 
+
+
   //if none of arrow keys are pressed, play idle animation
   if (
     !cursors.left.isDown &&
@@ -267,6 +276,8 @@ function update() {
   }
 
   // movement using wasd for player 2
+
+
 
   //left and right
   if (this.key_A.isDown) {
@@ -291,6 +302,16 @@ function update() {
     playerTwo.setAccelerationY(60);
     playerTwo.anims.play("walk", true);
   }
+
+
+
+
+
+
+
+
+
+
 
   //if player 2 is not pressing wasd, then play idle animation
   if (
