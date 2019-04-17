@@ -9,6 +9,14 @@ $(".close").on("click", function () {
   $(".bg-modal").css("display", "none");
 });
 
+$("#start-btn").on("click", function () {
+  var gameScript = document.createElement('script');
+
+  gameScript.setAttribute('src', 'js/game.js');
+
+  document.head.appendChild(gameScript);
+})
+
 
 
 // on click to trigger socket.io(add_player)
@@ -29,7 +37,7 @@ $("#send").on("click", function () {
 //   // console.log("Socket.id: ", socket.id);
 // }
 
-$(document).on("keyup", function(data) {
+$(document).on("keyup", function (data) {
   // console.log(data.key);
   socket.emit("keyPress", {
     keyPressed: data.key,
