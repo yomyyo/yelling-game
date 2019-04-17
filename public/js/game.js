@@ -181,8 +181,8 @@ function create() {
   playerTwo.setScale(3);
 
   // movement logic
-  player.body.maxVelocity.set(650);
-  playerTwo.body.maxVelocity.set(650);
+  player.body.maxVelocity.set(1000);
+  playerTwo.body.maxVelocity.set(1000);
   player.body.drag.set(450);
   playerTwo.body.drag.set(450);
 
@@ -236,25 +236,25 @@ function logKey(data) {
     //Logic for keypress
     switch (data.keyPressed) {
       case "ArrowUp" || "Up":
-        player.setVelocityY(-300);
+        player.setVelocityY(-700);
         // setTimeout(function () {
           // player.setVelocityY(0);
         // }, 50000)
         break;
       case "ArrowDown" || "Down":
-        player.setVelocityY(300);
+        player.setVelocityY(700);
         // setTimeout(function () {
         //   player.setVelocityY(0);
         // }, 50000)
         break;
       case "ArrowLeft" || "Left":
-        player.setVelocityX(-300);
+        player.setVelocityX(-700);
         // setTimeout(function () {
         //   player.setVelocityX(0);
         // }, 50000)
         break;
       case "ArrowRight" || "Right":
-        player.setVelocityX(300);
+        player.setVelocityX(700);
         // setTimeout(function () {
         //   player.setVelocityX(0);
         // }, 50000)
@@ -264,25 +264,25 @@ function logKey(data) {
     playerTwo.anims.play("walk", true);
     switch (data.keyPressed) {
       case "ArrowUp" || "Up":
-        playerTwo.setVelocityY(-300);
+        playerTwo.setVelocityY(-700);
         // setTimeout(function () {
         //   playerTwo.setVelocityY(0);
         // }, 50000)
         break;
       case "ArrowDown" || "Down":
-        playerTwo.setVelocityY(300);
+        playerTwo.setVelocityY(700);
         // setTimeout(function () {
         //   playerTwo.setVelocityY(0);
         // }, 50000)
         break;
       case "ArrowLeft" || "Left":
-        playerTwo.setVelocityX(-300);
+        playerTwo.setVelocityX(-700);
         // setTimeout(function () {
         //   playerTwo.setVelocityX(0);
         // }, 50000)
         break;
       case "ArrowRight" || "Right":
-        playerTwo.setVelocityX(300);
+        playerTwo.setVelocityX(700);
         // setTimeout(function () {
         //   playerTwo.setVelocityX(0);
         // }, 50000)
