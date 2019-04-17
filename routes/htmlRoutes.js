@@ -3,11 +3,12 @@ var db = require("../models");
 module.exports = function (app) {
   // Load index page
   app.get("/", function (req, res) {
-    db.Player.findAll({}).then((data)=>{
-      // console.log(res);
-      res.render("index", {
-    });
-    });
+    res.render('index');
+    // db.Player.findAll({}).then((data)=>{
+    //   // console.log(res);
+    //   res.render("index", {
+    // });
+    // });
     
   });
 
