@@ -15,7 +15,7 @@ function addMessages(data) {
         $("#player_one_name").attr("name", data.name);
         console.log($("#player_one_name").attr("name"));
 
-      
+
 
         // console.log(data.id);
         // $(".player_one_keypress").attr("id", data.id);
@@ -34,6 +34,19 @@ function addMessages(data) {
         // $(".player_two_keypress").attr("id", data.id);
     }
 }
+
+
+// Listener for server to tell us to start game
+socket.on("startGame", () => {
+    //Load game.js
+    var gameScript = document.createElement('script');
+    gameScript.setAttribute('src', 'js/game.js');
+    document.body.appendChild(gameScript);
+})
+
+
+
+
 
 socket.on("keyPress", logKey);
 

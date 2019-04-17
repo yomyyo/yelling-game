@@ -10,11 +10,12 @@ $(".close").on("click", function () {
 });
 
 $("#start-btn").on("click", function () {
-  var gameScript = document.createElement('script');
+  // var gameScript = document.createElement('script');
+  // gameScript.setAttribute('src', 'js/game.js');
+  // document.body.appendChild(gameScript);
 
-  gameScript.setAttribute('src', 'js/game.js');
-
-  document.head.appendChild(gameScript);
+  //Tell server to start the game
+  socket.emit("startGame");
 })
 
 
