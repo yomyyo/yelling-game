@@ -9,6 +9,10 @@ canvas {
     z-index: 1;
 }
 
+#blob-game {
+    z-index: 3;
+}
+
 #demo-gif {
     height: 100px;
     width: 100px;
@@ -50,4 +54,8 @@ input {
     font-size: 42px;
     transform: rotate(45deg);
     cursor: pointer;
+}
+
+.hidden {
+    visibility: hidden;
 }

@@ -14,6 +14,8 @@ $("#start-btn").on("click", function () {
 
   gameScript.setAttribute('src', 'js/game.js');
 
+  $("#create-game").attr("class", "hidden")
+
   document.head.appendChild(gameScript);
 })
 
