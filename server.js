@@ -51,7 +51,7 @@ io.on("connection", function (socket) {
   }
   
   //Log that a connection was made with a socket
-  console.log("Made socket connection: ", socket.id);
+  // console.log("Made socket connection: ", socket.id);
 
   //Fire off when player is added
   socket.on("add_player", function(data) {
@@ -77,7 +77,7 @@ io.on("connection", function (socket) {
       if(socket.id === blobs[i].id) {
         blob = blobs[i];
       }
-      console.log("92 " ,blob.name);
+      // console.log("92 " ,blob.name);
     }
     // blob.name = data.name;
     // console.log("94 " ,blob);
@@ -88,9 +88,15 @@ io.on("connection", function (socket) {
 
   //Fires off on keypress
   socket.on("keyPress", function(data) {
-    io.sockets.emit("keyPress", data);
+    io.sockets.emit("testing", data);
+    console.log("emitting key press")
   });
 
+
+  //Listen for game position update
+  socket.on("tellServerPosition", function(data) {
+   
+  })
   
   //Listener for startGame call
   socket.on("startGame", function() {
@@ -120,7 +126,7 @@ io.on("connection", function (socket) {
 
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync(syncOptions).then(function () {
-  var server = http.listen(3000, function () {
+  var server = http.listen(PORT, function () {
     console.log(
       "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
       PORT,
