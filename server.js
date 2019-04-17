@@ -120,7 +120,7 @@ io.on("connection", function (socket) {
 
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync(syncOptions).then(function () {
-  var server = http.listen(3000, function () {
+  var server = http.listen(PORT, function () {
     console.log(
       "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
       PORT,
