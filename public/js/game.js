@@ -1,3 +1,5 @@
+var socket = io();
+
 /* eslint-disable linebreak-style */
 // Setings for the game
 
@@ -34,6 +36,20 @@ var gameOver = false;
 var livesOne;
 var livesTwo;
 
+//Contain player's blobs
+var blobs = [];
+
+socket.on("receive_player", addBlobs);
+
+console.log("TESTING IN GAME.JS");
+console.log("BLobs: ", blobs);
+
+function addBlobs(data) {
+  blobs.push(data);
+  console.log("Blobs: ", data)
+}
+
+
 // preload assets before the game starts
 function preload() {
   this.load.image("grass", "images/grass.png");
@@ -67,10 +83,6 @@ function create() {
   graphics.strokeCircleShape(bounds);
 
 
-  //set player 1 and player 2 settings
-  // To blob 1 and blob 2 objects
-
-
   //player 1 settings
   player = this.physics.add.sprite(100, 300, "animatedBlob");
   player.setBounce(1);
@@ -82,6 +94,18 @@ function create() {
   playerTwo.setBounce(1);
   playerTwo.setSize(10, 10);
   playerTwo.setOffset(10, 22);
+
+
+  //set player 1 and player 2 settings
+  // To blob 1 and blob 2 objects
+  //
+  //
+  //
+  //add socket.io connection to load blobs array
+//
+//
+//
+
 
   // walking animation
   this.anims.create({
@@ -158,6 +182,9 @@ function update() {
 
 
   //Add listener for socket.io update
+  //
+  //
+  //
 
   // log where the players are on the map
   var p1PointX = player.x;
@@ -251,6 +278,12 @@ function update() {
 
   //up and down
   if (this.key_W.isDown) {
+    //log Player's Blob
+    //
+    //
+    //
+    console.log(blobs[{"id" : socket.id}])
+
     playerTwo.setAccelerationY(-160);
     playerTwo.anims.play("walk", true);
   } else if (this.key_S.isDown) {

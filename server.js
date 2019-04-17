@@ -86,9 +86,18 @@ io.on("connection", function (socket) {
 
   });
 
+  //Fires off on keypress
   socket.on("keyPress", function(data) {
     io.sockets.emit("keyPress", data);
+  });
+
+  
+  //Listener for startGame call
+  socket.on("startGame", function() {
+    //Tell all clients to start game
+    io.sockets.emit("startGame");
   })
+
     // io.sockets.emit("receive_player", data);
     // console.log("data.name: ", data.name);
 
