@@ -8,7 +8,7 @@ var config = {
   physics: {
     default: "arcade",
     arcade: {
-      debug: true
+      debug: false
     }
   },
   scene: {
@@ -65,6 +65,11 @@ function create() {
   // settings used to draw the ring
   graphics.lineStyle(5, 0x9400d3, 1);
   graphics.strokeCircleShape(bounds);
+
+
+  //set player 1 and player 2 settings
+  // To blob 1 and blob 2 objects
+
 
   //player 1 settings
   player = this.physics.add.sprite(100, 300, "animatedBlob");
@@ -150,6 +155,9 @@ function create() {
 
 // this function does real time checks on the state of the game
 function update() {
+
+
+  //Add listener for socket.io update
 
   // log where the players are on the map
   var p1PointX = player.x;
