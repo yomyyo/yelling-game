@@ -1,7 +1,39 @@
 var socket = io();
 
+socket.on("test", function () {
+  console.log()
+})
+
 /* eslint-disable linebreak-style */
 // Setings for the game
+
+var playerOneName;
+playerOneName = $("#player_one_name").html();
+var playerOneId;
+playerOneId = $("#player_one_id").html();
+
+var playerTwoName;
+playerTwoName = $("#player_two_name").html();
+var playerTwoId;
+playerTwoId = $("#player_two_id").html();
+
+var name;
+name = $("#name").val();
+
+var id;
+id = $("#playerId").val();
+
+// console.log("PLayer One : " + playerOneName);
+// console.log("PLayer Two : " + playerTwoName);
+
+
+// console.log("PLayer One Id: " + playerOneId);
+// console.log("PLayer Two Id: " + playerTwoId);
+
+// console.log("socket ID: ", socket.id);
+
+
+
 
 var config = {
   type: Phaser.AUTO,
@@ -103,9 +135,9 @@ function create() {
   //
   //
   //add socket.io connection to load blobs array
-//
-//
-//
+  //
+  //
+  //
 
 
   // walking animation
@@ -168,7 +200,7 @@ function create() {
     strokeThickness: 2,
     fill: "#ff0000"
   });
- 
+
   // display number of lives for player 2
   livesTwo = this.add.text(430, 16, "Player 2 Lives: 3", {
     font: "20px Arial",
@@ -177,6 +209,92 @@ function create() {
     fill: "#ff0000"
   });
 }
+
+
+
+socket.on("testing", logKey);
+
+function logKey(data) {
+  // console.log("playerId: ", socket.id);
+  console.log("Key Data: ", data.keyPressed);
+  console.log("name:", data.name)
+
+  // console.log("Player Array: ", playerArr);
+  // console.log("PlayerOne: ", playerArr[0]);
+  // console.log("PlayerTwo: ", playerArr[1]);
+
+  //if player is player one
+  // console.log("player 1 name: ", playerOneName);
+  // console.log("player 2 name: ", playerTwoName);
+  // console.log("data name: ", data.name);
+
+  if (data.name === playerOneName) {
+
+    console.log("in player one");
+    player.anims.play("walk", true);
+
+    //Logic for keypress
+    switch (data.keyPressed) {
+      case "ArrowUp" || "Up":
+        player.setVelocityY(-160);
+        // setTimeout(function () {
+          // player.setVelocityY(0);
+        // }, 50000)
+        break;
+      case "ArrowDown" || "Down":
+        player.setVelocityY(160);
+        // setTimeout(function () {
+        //   player.setVelocityY(0);
+        // }, 50000)
+        break;
+      case "ArrowLeft" || "Left":
+        player.setVelocityX(-160);
+        // setTimeout(function () {
+        //   player.setVelocityX(0);
+        // }, 50000)
+        break;
+      case "ArrowRight" || "Right":
+        player.setVelocityX(160);
+        // setTimeout(function () {
+        //   player.setVelocityX(0);
+        // }, 50000)
+        break;
+    }
+  } else {
+    playerTwo.anims.play("walk", true);
+    switch (data.keyPressed) {
+      case "ArrowUp" || "Up":
+        playerTwo.setVelocityY(-160);
+        // setTimeout(function () {
+        //   playerTwo.setVelocityY(0);
+        // }, 50000)
+        break;
+      case "ArrowDown" || "Down":
+        playerTwo.setVelocityY(160);
+        // setTimeout(function () {
+        //   playerTwo.setVelocityY(0);
+        // }, 50000)
+        break;
+      case "ArrowLeft" || "Left":
+        playerTwo.setVelocityX(-160);
+        // setTimeout(function () {
+        //   playerTwo.setVelocityX(0);
+        // }, 50000)
+        break;
+      case "ArrowRight" || "Right":
+        playerTwo.setVelocityX(160);
+        // setTimeout(function () {
+        //   playerTwo.setVelocityX(0);
+        // }, 50000)
+        break;
+    }
+  }
+}
+
+
+
+
+
 
 // this function does real time checks on the state of the game
 function update() {
@@ -192,6 +310,15 @@ function update() {
   var p1PointY = player.y;
   var p2PointX = playerTwo.x;
   var p2PointY = playerTwo.y;
+
+
+  socket.emit("tellServerPosition", {
+    p1PointX: player.x,
+    p1PointY: player.y,
+    p2PointX: playerTwo.x,
+    p2PointY: playerTwo.y,
+    name: name
+  })
 
   // if a player has no more lives, end the game
   if (gameOver) {
@@ -238,70 +365,149 @@ function update() {
 
 
 
+  // socket.on("testing", logKey);
+
+  // function logKey(data) {
+  //   // console.log("playerId: ", socket.id);
+  //   console.log("Key Data: ", data.keyPressed);
+  //   console.log("name:", data.name)
+
+  //   // console.log("Player Array: ", playerArr);
+  //   // console.log("PlayerOne: ", playerArr[0]);
+  //   // console.log("PlayerTwo: ", playerArr[1]);
+
+  //   //if player is player one
+  //   // console.log("player 1 name: ", playerOneName);
+  //   // console.log("player 2 name: ", playerTwoName);
+  //   // console.log("data name: ", data.name);
+
+  //   if (data.name === playerOneName) {
+
+  //     console.log("in player one");
+  //     player.anims.play("walk", true);
+
+  //     //Logic for keypress
+  //     switch (data.keyPressed) {
+  //       case "ArrowUp" || "Up":
+  //         player.setVelocityY(-160);
+  //         setTimeout(function() {
+  //           player.setVelocityY(0);
+  //         }, 1)
+  //         break;
+  //       case "ArrowDown" || "Down":
+  //         player.setVelocityY(160);
+  //         setTimeout(function() {
+  //           player.setVelocityY(0);
+  //         }, 500)
+  //         break;
+  //       case "ArrowLeft" || "Left":
+  //         player.setVelocitynX(-160);
+  //         setTimeout(function() {
+  //           player.setVelocityX(0);
+  //         }, 500)
+  //         break;
+  //       case "ArrowRight" || "Right":
+  //         player.setVelocityX(160);
+  //         setTimeout(function() {
+  //           player.setVelocityX(0);
+  //         }, 500)
+  //         break;
+  //     }
+  //   } else {
+  //     playerTwo.anims.play("walk", true);
+  //     switch (data.keyPressed) {
+  //       case "ArrowUp" || "Up":
+  //         playerTwo.setVelocityY(-160);
+  //         setTimeout(function() {
+  //           playerTwo.setVelocityY(0);
+  //         }, 500)
+  //         break;
+  //       case "ArrowDown" || "Down":
+  //         playerTwo.setVelocityY(160);
+  //         setTimeout(function() {
+  //           playerTwo.setVelocityY(0);
+  //         }, 500)
+  //         break;
+  //       case "ArrowLeft" || "Left":
+  //         playerTwo.setVelocitynX(-160);
+  //         setTimeout(function() {
+  //           playerTwo.setVelocityX(0);
+  //         }, 500)
+  //         break;
+  //       case "ArrowRight" || "Right":
+  //         playerTwo.setVelocityX(160);
+  //         setTimeout(function() {
+  //           playerTwo.setVelocityX(0);
+  //         }, 500)
+  //         break;
+  //     }
+  //   }
+  // }
 
 
 
 
 
-  //left and right
-  if (cursors.left.isDown) {
-    player.anims.play("walk", true);
-    player.setAccelerationX(-160);
-  } else if (cursors.right.isDown) {
-    player.setAccelerationX(160);
-    player.anims.play("walk", true);
-  }
 
-  //up and down
-  if (cursors.up.isDown) {
-    player.setAccelerationY(-160);
-    player.anims.play("walk", true);
-  } else if (cursors.down.isDown) {
-    player.setAccelerationY(160);
-    player.anims.play("walk", true);
-  }
+  // //left and right
+  // if (cursors.left.isDown) {
+  //   player.anims.play("walk", true);
+  //   player.setAccelerationX(-160);
+  // } else if (cursors.right.isDown) {
+  //   player.setAccelerationX(160);
+  //   player.anims.play("walk", true);
+  // }
+
+  // //up and down
+  // if (cursors.up.isDown) {
+  //   player.setAccelerationY(-160);
+  //   player.anims.play("walk", true);
+  // } else if (cursors.down.isDown) {
+  //   player.setAccelerationY(160);
+  //   player.anims.play("walk", true);
+  // }
 
 
 
   //if none of arrow keys are pressed, play idle animation
-  if (
-    !cursors.left.isDown &&
-    !cursors.right.isDown &&
-    !cursors.up.isDown &&
-    !cursors.down.isDown
-  ) {
-    player.setAccelerationX(0);
-    player.setAccelerationY(0);
-    player.anims.play("idle", true);
-  }
+  // if (
+  //   !cursors.left.isDown &&
+  //   !cursors.right.isDown &&
+  //   !cursors.up.isDown &&
+  //   !cursors.down.isDown
+  // ) {
+  //   player.setAccelerationX(0);
+  //   player.setAccelerationY(0);
+  //   player.anims.play("idle", true);
+  // }
 
   // movement using wasd for player 2
 
 
 
-  //left and right
-  if (this.key_A.isDown) {
-    playerTwo.setAccelerationX(-160);
-    playerTwo.anims.play("walk", true);
-  } else if (this.key_D.isDown) {
-    playerTwo.setAccelerationX(160);
-    playerTwo.anims.play("walk", true);
-  }
+  // //left and right
+  // if (this.key_A.isDown) {
+  //   playerTwo.setAccelerationX(-160);
+  //   playerTwo.anims.play("walk", true);
+  // } else if (this.key_D.isDown) {
+  //   playerTwo.setAccelerationX(160);
+  //   playerTwo.anims.play("walk", true);
+  // }
 
-  //up and down
-  if (this.key_W.isDown) {
-    //log Player's Blob
-    //
-    //
-    //
-    console.log(blobs[{"id" : socket.id}])
+  // //up and down
+  // if (this.key_W.isDown) {
+  //   //log Player's Blob
+  //   //
+  //   //
+  //   //
+  //   console.log(blobs[{ "id": socket.id }])
 
-    playerTwo.setAccelerationY(-160);
-    playerTwo.anims.play("walk", true);
-  } else if (this.key_S.isDown) {
-    playerTwo.setAccelerationY(60);
-    playerTwo.anims.play("walk", true);
-  }
+  //   playerTwo.setAccelerationY(-160);
+  //   playerTwo.anims.play("walk", true);
+  // } else if (this.key_S.isDown) {
+  //   playerTwo.setAccelerationY(60);
+  //   playerTwo.anims.play("walk", true);
+  // }
 
 
 
@@ -314,16 +520,16 @@ function update() {
 
 
   //if player 2 is not pressing wasd, then play idle animation
-  if (
-    !this.key_A.isDown &&
-    !this.key_D.isDown &&
-    !this.key_S.isDown &&
-    !this.key_W.isDown
-  ) {
-    playerTwo.setAccelerationX(0);
-    playerTwo.setAccelerationY(0);
-    playerTwo.anims.play("idle", true);
-  }
+  // if (
+  //   !this.key_A.isDown &&
+  //   !this.key_D.isDown &&
+  //   !this.key_S.isDown &&
+  //   !this.key_W.isDown
+  // ) {
+  //   playerTwo.setAccelerationX(0);
+  //   playerTwo.setAccelerationY(0);
+  //   playerTwo.anims.play("idle", true);
+  // }
 
   //   if (player.body.touching.right) {
   //     player.body.acceleration.x = -50;

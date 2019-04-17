@@ -1,6 +1,7 @@
 var socket = io();
 var name;
 
+
 $("#join-btn").on("click", function () {
   $(".bg-modal").css("display", "flex");
 });
@@ -13,7 +14,7 @@ $("#start-btn").on("click", function () {
   // var gameScript = document.createElement('script');
   // gameScript.setAttribute('src', 'js/game.js');
   // document.body.appendChild(gameScript);
-$("#create-game").attr("class", "hidden");
+  $("#create-game").attr("class", "hidden");
   //Tell server to start the game
   socket.emit("startGame");
 })
