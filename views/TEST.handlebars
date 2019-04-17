@@ -16,20 +16,33 @@
     if (annyang) {
       // Let's define our first command. First the text we expect, and then the function it should call
       var commands = {
-        'Is voice working': function () {
-          console.log("yes, voice is working");
+        'Left': function () {
+          console.log("Left!");
+          socket.emit("keyPress", {
+            keyPressed: "left",
+            name: name
+          })
         },
-        'Vroom': () => {
-          console.log("Too fast!")
-        },
-        'Meep meep': () => {
-          console.log("Hi Roadrunner!")
+        'Right': () => {
+          console.log("Right!")
+          socket.emit("keyPress", {
+            keyPressed: "right",
+            name: name
+          })
         },
         'Up': () => {
           console.log("Up!")
+          socket.emit("keyPress", {
+            keyPressed: "up",
+            name: name
+          })
         },
         'Down': () => {
           console.log("Down!")
+          socket.emit("keyPress", {
+            keyPressed: "down",
+            name: name
+          })
         },
       };
 
