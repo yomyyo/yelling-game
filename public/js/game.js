@@ -181,10 +181,10 @@ function create() {
   playerTwo.setScale(3);
 
   // movement logic
-  player.body.maxVelocity.set(500);
-  playerTwo.body.maxVelocity.set(500);
-  player.body.drag.set(250);
-  playerTwo.body.drag.set(250);
+  player.body.maxVelocity.set(650);
+  playerTwo.body.maxVelocity.set(650);
+  player.body.drag.set(450);
+  playerTwo.body.drag.set(450);
 
   // set so players cannot leave the bounds of the screen
   player.body.collideWorldBounds = true;
