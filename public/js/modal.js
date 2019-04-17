@@ -13,17 +13,9 @@ $("#start-btn").on("click", function () {
   // var gameScript = document.createElement('script');
   // gameScript.setAttribute('src', 'js/game.js');
   // document.body.appendChild(gameScript);
-
-<<<<<<< HEAD
+$("#create-game").attr("class", "hidden");
   //Tell server to start the game
   socket.emit("startGame");
-=======
-  gameScript.setAttribute('src', 'js/game.js');
-
-  $("#create-game").attr("class", "hidden")
-
-  document.head.appendChild(gameScript);
->>>>>>> fba7bd9c672f1bde635a529f8d6e7c0b414072e4
 })
 
 

@@ -42,6 +42,8 @@ socket.on("startGame", () => {
     var gameScript = document.createElement('script');
     gameScript.setAttribute('src', 'js/game.js');
     document.body.appendChild(gameScript);
+    $("#create-game").attr("class", "hidden");
+
 })
 
 
