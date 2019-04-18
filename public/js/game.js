@@ -342,7 +342,49 @@ function update() {
       livesOne.setText("Player 1 Lives: " + p1Lives);
       stateText.text = "PLAYER 2 WINS";
       stateText.visible = true;
-      gameOver = true;
+      
+      var winPlayer;
+      var losePlayer;
+      $.get("/api/players", function (data) {
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].name == playerOneName) {
+            winPlayer = data[i];
+          }
+          if (data[i].name == playerTwoName) {
+            losePlayer = data[i];
+          }
+        }
+
+        var wins = losePlayer.wins + 1;
+        var newData = {
+          wins: wins
+        }
+
+        losses = winPlayer.losses + 1;
+        var losedata = {
+          losses: losses
+        }
+
+        $.ajax("/api/players/" + playerOneName, {
+          type: "PUT",
+          data: newData
+        }).then(
+          function () {
+            console.log("Player Two Wins");
+          }
+        )
+
+        $.ajax("/api/players/" + playerTwoName, {
+          type: "PUT",
+          data: losedata
+        }).then(
+          function () {
+            console.log("Player One Lose");
+          }
+        )
+        gameOver = true;
+        $("#end-game").removeAttr("class");
+      })
     }
   }
 
@@ -357,7 +399,47 @@ function update() {
       livesTwo.setText("Player 2 Lives: " + p2Lives);
       stateText.text = "PLAYER 1 WINS";
       stateText.visible = true;
-      gameOver = true;
+
+      var winPlayer;
+      var losePlayer;
+      $.get("/api/players", function (data) {
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].name == playerOneName) {
+            winPlayer = data[i];
+          }
+          if (data[i].name == playerTwoName) {
+            losePlayer = data[i];
+          }
+        }
+
+        var newData = {
+          wins: winPlayer.wins + 1
+        }
+
+        var losedata = {
+          losses: losePlayer.losses + 1
+        }
+
+        $.ajax("/api/players/" + playerOneName, {
+          type: "PUT",
+          data: newData
+        }).then(
+          function () {
+            console.log("Player One Wins");
+          }
+        )
+
+        $.ajax("/api/players/" + playerTwoName, {
+          type: "PUT",
+          data: losedata
+        }).then(
+          function () {
+            console.log("Player Two Lose");
+          }
+        )
+        gameOver = true;
+        $("#end-game").removeAttr("class");
+      })
     }
   }
 
