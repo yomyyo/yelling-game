@@ -55,28 +55,28 @@ if (annyang) {
     'Left': function () {
       console.log("Left!");
       socket.emit("keyPress", {
-        keyPressed: "Left",
+        keyPressed: "ArrowLeft",
         name: name
       })
     },
     'Right': () => {
       console.log("Right!")
       socket.emit("keyPress", {
-        keyPressed: "Right",
+        keyPressed: "ArrowRight",
         name: name
       })
     },
     'Up': () => {
       console.log("Up!")
       socket.emit("keyPress", {
-        keyPressed: "Up",
+        keyPressed: "ArrowUp",
         name: name
       })
     },
     'Down': () => {
       console.log("Down!")
       socket.emit("keyPress", {
-        keyPressed: "Down",
+        keyPressed: "ArrowDown",
         name: name
       })
     },
