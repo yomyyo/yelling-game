@@ -45,6 +45,9 @@ var c = canvas.getContext("2d");
 // c.strokeStyle = "blue";
 // c.stroke();
 
+//Generate random color for blobs
+
+
 
 function Circle(x, y, dx, dy, radius) {
     this.x = x;
