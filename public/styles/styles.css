@@ -98,3 +98,19 @@ input {
     width: 25%;
     height: 25%;
 }
+
+#howToPlay {
+    opacity: 1;
+}
+
+#description {
+    opacity: 1;
+}
+
+#play-game {
+    opacity: 1;
+}
+
+.jumbo-transparent {
+    opacity: .75;
+}
