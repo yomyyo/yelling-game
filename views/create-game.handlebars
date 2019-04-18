@@ -1,19 +1,16 @@
 <canvas></canvas>
 
 <div class="bg-modal">
-        <div class="modal-content">
-            <div class="close">+</div>
-            <form id="name-form" action="#">
-                <input id="name" type="text" placeholder="Screen Name">
-                <button id="send" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
+    <div class="modal-content">
+        <div class="close">+</div>
+        <form id="name-form" action="#">
+            <input id="name" type="text" placeholder="Screen Name">
+            <button id="send" class="btn btn-primary">Submit</button>
+        </form>
     </div>
+</div>
 
 <div id="blob-game"></div>
-<p id="player-id"></p>
-<p id="player_one_id"></p>
-<p id="player_two_id"></p>
 
 <div id="create-game" class="content">
     <h1 id="test" class="pb-5">Create Game Page</h1>
@@ -21,14 +18,14 @@
         <div class="jumbotron py-0">
             <div class="row">
                 <div class="col-md-4 mt-2">
-                        <a></a><button id="join-btn" class="btn btn-primary">Join Game</button></a>
+                    <a></a><button id="join-btn" class="btn btn-primary">Join Game</button></a>
                 </div>
                 <div class="col-md-4"></div>
                 <div class="col-md-4 mt-2">
                     <div class="card">
-                        <img id="stage_image" class="card-img-top" src="..." alt="Map image">
+                        <img id="stage_image" class="card-img-top" src="/images/grass.png" alt="Map image">
                         <div class="card-body">
-                            <p id="stage_name" class="card-text">stage_name</p>
+                            <p id="stage_name" class="card-text text-center">Lovely Field</p>
                         </div>
                     </div>
                 </div>
@@ -41,23 +38,60 @@
                 <div class="col-md-4"></div>
             </div>
             <div class="row">
-                 <div class="col-md-3"></div>
+                <div class="col-md-3"></div>
                 <div class="col-md-3">
-                    <div class="card">
-                        <img id="test_img" class="card-img-top" src="...">
-                        <div class="card-body">
-                            <p id="player_one_name" player-connected="false" class="card-text">Waiting for player...</p>
+                    <div class="card container">
+                        <div class="card-title">
+                            <div id="player-one-options" class="hidden">
+                                <div class="row">
+                                    <div class="col-md-3 p-1">
+                                        <option id="red"></option>
+                                    </div>
+                                    <div class="col-md-3 p-1">
+                                        <option id="blue"></option>
+                                    </div>
+                                    <div class="col-md-3 p-1">
+                                        <option id="green"></option>
+                                    </div>
+                                    <div class="col-md-3 p-1">
+                                        <option id="yellow"></option>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <img class="blob-img" src="/images/blueBlob.jpg" alt="">
+                                </div>
+                            </div>
+                            <p id="player_one_name" player-connected="false" class="card-text text-center">Waiting for
+                                player...</p>
                             <p class="player_one_keypress"></p>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-3">
-                    <div class="card">
-                        <img id="timmy_img" class="card-img-top" src="...">
-                        <div class="card-body">
-                            <p id="player_two_name" data-player-connected="false" class="card-text">Waiting for player...</p>
-                            <p class="player_two_keypress"></p>
+                    <div class="card container">
+                        <div class="card-title">
+                            <div id="player_one_options" class="hidden">
+                                <div class="row">
+                                    <div class="col-md-3 p-1">
+                                        <option id="red"></option>
+                                    </div>
+                                    <div class="col-md-3 p-1">
+                                        <option id="blue"></option>
+                                    </div>
+                                    <div class="col-md-3 p-1">
+                                        <option id="green"></option>
+                                    </div>
+                                    <div class="col-md-3 p-1">
+                                        <option id="yellow"></option>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <img class="blob-img" src="/images/blueBlob.jpg" alt="">
+                                </div>
+                            </div>
+                            <p id="player_one_name" class="card-text text-center">Waiting for player...</p>
+                            <p class="player_one_keypress"></p>
                         </div>
                     </div>
                 </div>
@@ -83,10 +117,11 @@
 
 <!-- SCRIPT FOR AJAX !-->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!-- SCRIPT FOR PEP? !-->
-<script src="https://code.jquery.com/pep/0.4.3/pep.js"></script>
+
+
 <!-- SCRIPT FOR ??? !-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
+
 <!-- SCRIPT FOR INDEX !-->
 <script src="/js/index.js"></script>
 <!-- SCRIPT FOR CANVAS !-->

@@ -142,7 +142,8 @@ function create() {
 
   // walking animation
   this.anims.create({
-    key: "walk",
+    //Red color
+    key: "walk-red",
     frames: this.anims.generateFrameNumbers("animatedBlob", {
       //use different frames to choose different colors. refer to animate.png in images
       start: 121,
@@ -151,6 +152,40 @@ function create() {
     frameRate: 15,
     repeat: -1
   });
+  this.anims.create({
+    //Blue color
+    key: "walk-blue",
+    frames: this.anims.generateFrameNumbers("animatedBlob", {
+      //use different frames to choose different colors. refer to animate.png in images
+      start: 71,
+      end: 80
+    }),
+    frameRate: 15,
+    repeat: -1
+  })
+  this.anims.create({
+    //Green color
+    key: "walk-green",
+    frames: this.anims.generateFrameNumbers("animatedBlob", {
+      //use different frames to choose different colors. refer to animate.png in images
+      start: 21,
+      end: 30
+    }),
+    frameRate: 15,
+    repeat: -1
+  });
+  this.anims.create({
+    //yellow color
+    key: "walk-yellow",
+    frames: this.anims.generateFrameNumbers("animatedBlob", {
+      //use different frames to choose different colors. refer to animate.png in images
+      start: 171,
+      end: 180
+    }),
+    frameRate: 15,
+    repeat: -1
+  });
+  
 
   // idle animation
   this.anims.create({
@@ -212,7 +247,7 @@ function create() {
 
 
 
-socket.on("testing", logKey);
+socket.on("updateLocation", logKey);
 
 function logKey(data) {
   // console.log("playerId: ", socket.id);
@@ -231,7 +266,7 @@ function logKey(data) {
   if (data.name === playerOneName) {
 
     console.log("in player one");
-    player.anims.play("walk", true);
+    player.anims.play("walk-green", true);
 
     //Logic for keypress
     switch (data.keyPressed) {
@@ -261,7 +296,7 @@ function logKey(data) {
         break;
     }
   } else {
-    playerTwo.anims.play("walk", true);
+    playerTwo.anims.play("walk-blue", true);
     switch (data.keyPressed) {
       case "ArrowUp" || "Up":
         playerTwo.setVelocityY(-160);
