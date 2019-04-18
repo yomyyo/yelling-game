@@ -1,5 +1,8 @@
 var socket = io();
 var name;
+var playerOneColor;
+var playerTwoColor;
+
 
 
 $("#join-btn").on("click", function () {
@@ -21,15 +24,60 @@ $("#start-btn").on("click", function () {
 
 
 
+$(".color-btn").on("click", function () {
+  console.log($(this).attr("id"));
+
+  switch ($(this).attr("id")) {
+    case "p1-red":
+      $("#player-one-img").attr("src", "/images/redBlob.jpg")
+      playerOneColor = "red";
+      break;
+    case "p2-red":
+      $("#player-two-img").attr("src", "/images/redBlob.jpg")
+      playerTwoColor = "red";
+      break;
+    case "p1-blue":
+      $("#player-one-img").attr("src", "/images/blueBlob.jpg")
+      playerOneColor = "blue";
+      break;
+    case "p2-blue":
+      $("#player-two-img").attr("src", "/images/blueBlob.jpg")
+      playerTwoColor = "blue";
+      break;
+    case "p1-green":
+      $("#player-one-img").attr("src", "/images/greenBlob.jpg")
+      playerOneColor = "green";
+      break;
+    case "p2-green":
+      $("#player-two-img").attr("src", "/images/greenBlob.jpg")
+      playerTwoColor = "green";
+      break;
+    case "p1-yellow":
+      $("#player-one-img").attr("src", "/images/yellowBlob.jpg")
+      playerOneColor = "yellow";
+      break;
+    case "p2-yellow":
+      $("#player-two-img").attr("src", "/images/yellowBlob.jpg")
+      playerTwoColor = "yellow";
+      break;
+  }
+})
+
+
+
+
+
+
 // on click to trigger socket.io(add_player)
 $("#send").on("click", function () {
+
   var allNames = [];
   name = $("#name").val();
-  $.get("/api/players", function(data) {
+  $.get("/api/players", function (data) {
     for (var i = 0; i < data.length; i++) {
       allNames.push(data[i].name);
     }
-    if(allNames.includes(name)) {
+    if (allNames.includes(name)) {
       $(".bg-modal").css("display", "none");
       name = $("#name").val();
       socket.emit("add_player", {
@@ -45,7 +93,7 @@ $("#send").on("click", function () {
         color: "#000000"
       })
 
-      
+
       var player = {
         name: name,
         wins: 0,
@@ -56,7 +104,7 @@ $("#send").on("click", function () {
         type: "POST",
         data: player
       }).then(
-        function() {
+        function () {
           console.log("new player added");
         }
       )
@@ -77,7 +125,9 @@ $(document).on("keyup", function (data) {
   // console.log(data.key);
   socket.emit("keyPress", {
     keyPressed: data.key,
-    name: name
+    name: name,
+    playerOneColor: playerOneColor,
+    playerTwoColor: playerTwoColor
   })
 })
 
