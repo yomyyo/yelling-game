@@ -211,7 +211,7 @@ function create() {
 }
 
 
-
+// Listens for keypress data from server
 socket.on("testing", logKey);
 
 function logKey(data) {
