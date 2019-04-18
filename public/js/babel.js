@@ -112,8 +112,9 @@ class Blob {
       this._radius = value;
     }
   }
+  //Blob size
   get radius() {
-    return this._radius || 150;
+    return this._radius || 25;
   }
 
   set position(value) {
@@ -227,14 +228,14 @@ blob2 = new Blob;
 
 
 init = function () {
-  canvas = document.querySelector('canvas');
+  canvas = document.querySelector('.blob-canvas');
   canvas.setAttribute('touch-action', 'none');
 
   // document.body.appendChild(canvas);
 
   let resize = function () {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.style.width = "100%" //window.innerWidth;
+    canvas.style.height = "100%" //window.innerHeight;
   }
   window.addEventListener('resize', resize);
   resize();
