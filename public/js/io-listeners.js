@@ -59,7 +59,7 @@ socket.on("startGame", () => {
 
 
 
-
+// Listens for keypress data from server
 socket.on("keyPress", logKey);
 
 function logKey(data) {

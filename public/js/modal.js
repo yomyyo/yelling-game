@@ -72,6 +72,7 @@ $("#send").on("click", function () {
 //   // console.log("Socket.id: ", socket.id);
 // }
 
+// Captures keypress to send to server and all players
 $(document).on("keyup", function (data) {
   // console.log(data.key);
   socket.emit("keyPress", {
@@ -87,28 +88,28 @@ if (annyang) {
     'Left': function () {
       console.log("Left!");
       socket.emit("keyPress", {
-        keyPressed: "left",
+        keyPressed: "ArrowLeft",
         name: name
       })
     },
     'Right': () => {
       console.log("Right!")
       socket.emit("keyPress", {
-        keyPressed: "right",
+        keyPressed: "ArrowRight",
         name: name
       })
     },
     'Up': () => {
       console.log("Up!")
       socket.emit("keyPress", {
-        keyPressed: "up",
+        keyPressed: "ArrowUp",
         name: name
       })
     },
     'Down': () => {
       console.log("Down!")
       socket.emit("keyPress", {
-        keyPressed: "down",
+        keyPressed: "ArrowDown",
         name: name
       })
     },
