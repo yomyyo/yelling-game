@@ -23,18 +23,6 @@ name = $("#name").val();
 var id;
 id = $("#playerId").val();
 
-// console.log("PLayer One : " + playerOneName);
-// console.log("PLayer Two : " + playerTwoName);
-
-
-// console.log("PLayer One Id: " + playerOneId);
-// console.log("PLayer Two Id: " + playerTwoId);
-
-// console.log("socket ID: ", socket.id);
-
-
-
-
 var config = {
   type: Phaser.AUTO,
   parent: "blob-game",
@@ -185,7 +173,7 @@ function create() {
     frameRate: 15,
     repeat: -1
   });
-  
+
 
   // idle animation
   this.anims.create({
@@ -246,18 +234,17 @@ function create() {
 }
 
 
-<<<<<<< HEAD
 
 socket.on("updateLocation", logKey);
-=======
-// Listens for keypress data from server
-socket.on("testing", logKey);
->>>>>>> 3d7c9000074e0c5292c3e6042ac9d7a7c77e4488
 
 function logKey(data) {
   // console.log("playerId: ", socket.id);
   console.log("Key Data: ", data.keyPressed);
   console.log("name:", data.name)
+
+
+  console.log("p1-color: ", data.playerOneColor);
+  console.log("p2-color: ", data.playerTwoColor);
 
   // console.log("Player Array: ", playerArr);
   // console.log("PlayerOne: ", playerArr[0]);
@@ -271,14 +258,32 @@ function logKey(data) {
   if (data.name === playerOneName) {
 
     console.log("in player one");
-    player.anims.play("walk-green", true);
+
+    switch (playerOneColor) {
+      case "red":
+        player.anims.play("walk-red", true);
+        break;
+      case "blue":
+      player.anims.play("walk-blue", true);
+        break;
+      case "green":
+      player.anims.play("walk-green", true);
+        break;
+      case "yellow":
+      player.anims.play("walk-yellow", true);
+        break;
+    }
+
+
+
+    // player.anims.play("walk-green", true);
 
     //Logic for keypress
     switch (data.keyPressed) {
       case "ArrowUp" || "Up":
         player.setVelocityY(-700);
         // setTimeout(function () {
-          // player.setVelocityY(0);
+        // player.setVelocityY(0);
         // }, 50000)
         break;
       case "ArrowDown" || "Down":
@@ -382,7 +387,7 @@ function update() {
       livesOne.setText("Player 1 Lives: " + p1Lives);
       stateText.text = "PLAYER 2 WINS";
       stateText.visible = true;
-      
+
       var winPlayer;
       var losePlayer;
       $.get("/api/players", function (data) {

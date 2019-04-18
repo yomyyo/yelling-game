@@ -69,22 +69,22 @@ input {
 
 
 /*Style for blob color selector*/
-#red {
+#p1-red, #p2-red {
     background-color: red;
     cursor: pointer;
 }
 
-#blue {
+#p1-blue,  #p2-blue{
     background-color: blue;
     cursor: pointer;
 }
 
-#green {
+#p1-green, #p2-green {
     background-color: green;
     cursor: pointer;
 }
 
-#yellow {
+#p1-yellow, #p2-yellow {
     background-color: yellow;
     cursor: pointer;
 }
