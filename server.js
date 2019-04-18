@@ -88,7 +88,7 @@ io.on("connection", function (socket) {
 
   //Fires off on keypress
   socket.on("keyPress", function(data) {
-    io.sockets.emit("testing", data);
+    io.sockets.emit("updateLocation", data);
     console.log("emitting key press")
   });
 

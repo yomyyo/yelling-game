@@ -59,3 +59,42 @@ input {
 .hidden {
     visibility: hidden;
 }
+
+#blob-image {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+
+/*Style for blob color selector*/
+#p1-red, #p2-red {
+    background-color: red;
+    cursor: pointer;
+}
+
+#p1-blue,  #p2-blue{
+    background-color: blue;
+    cursor: pointer;
+}
+
+#p1-green, #p2-green {
+    background-color: green;
+    cursor: pointer;
+}
+
+#p1-yellow, #p2-yellow {
+    background-color: yellow;
+    cursor: pointer;
+}
+
+/*Negate hover effects*/
+/* .no-hover{
+    pointer-events: none;
+} */
+
+.blob-img {
+    width: 25%;
+    height: 25%;
+}
