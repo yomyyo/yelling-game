@@ -8,7 +8,9 @@ module.exports = function (app) {
       order: [
         ['wins', 'DESC'],
         ["losses", "ASC"]
-      ]
+      ],
+
+      limit: 5
     }).then((data) => {
       // console.log(res);
       res.render("index", { player: data });
