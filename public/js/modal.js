@@ -25,6 +25,7 @@ $("#start-btn").on("click", function () {
 $("#send").on("click", function () {
   $(".bg-modal").css("display", "none");
   name = $("#name").val();
+  
   socket.emit("add_player", {
     name: $("#name").val(),
     color: "#000000"
