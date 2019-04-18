@@ -383,6 +383,7 @@ function update() {
           }
         )
         gameOver = true;
+        $("#end-game").removeAttr("class");
       })
     }
   }
@@ -437,6 +438,7 @@ function update() {
           }
         )
         gameOver = true;
+        $("#end-game").removeAttr("class");
       })
     }
   }
