@@ -10,7 +10,11 @@
     </div>
 </div>
 
-<div id="blob-game"></div>
+<div id="blob-game">
+    <div id="end-game" class="hidden">
+        <a href="/"><button type="button" class="btn btn-primary">End the game</button></a>
+    </div>
+</div>
 
 <div id="create-game" class="content">
     <h1 id="test" class="pb-5">Create Game Page</h1>
@@ -61,8 +65,7 @@
                                     <img class="blob-img" src="/images/blueBlob.jpg" alt="">
                                 </div>
                             </div>
-                            <p id="player_one_name" player-connected="false" class="card-text text-center">Waiting for
-                                player...</p>
+                            <p id="player_one_name" class="card-text text-center">Waiting for player...</p>
                             <p class="player_one_keypress"></p>
                         </div>
                     </div>
@@ -71,7 +74,7 @@
                 <div class="col-md-3">
                     <div class="card container">
                         <div class="card-title">
-                            <div id="player_one_options" class="hidden">
+                            <div id="player-two-options" class="hidden">
                                 <div class="row">
                                     <div class="col-md-3 p-1">
                                         <option id="red"></option>
@@ -90,8 +93,8 @@
                                     <img class="blob-img" src="/images/blueBlob.jpg" alt="">
                                 </div>
                             </div>
-                            <p id="player_one_name" class="card-text text-center">Waiting for player...</p>
-                            <p class="player_one_keypress"></p>
+                            <p id="player_two_name" class="card-text text-center">Waiting for player...</p>
+                            <p class="player_two_keypress"></p>
                         </div>
                     </div>
                 </div>

@@ -23,12 +23,54 @@ $("#start-btn").on("click", function () {
 
 // on click to trigger socket.io(add_player)
 $("#send").on("click", function () {
-  $(".bg-modal").css("display", "none");
+
+  var allNames = [];
   name = $("#name").val();
-  
-  socket.emit("add_player", {
-    name: $("#name").val(),
-    color: "#000000"
+  $.get("/api/players", function(data) {
+    for (var i = 0; i < data.length; i++) {
+      allNames.push(data[i].name);
+    }
+    if(allNames.includes(name)) {
+      $(".bg-modal").css("display", "none");
+      name = $("#name").val();
+      socket.emit("add_player", {
+        name: $("#name").val(),
+        color: "#000000"
+      })
+    }
+    else {
+      $(".bg-modal").css("display", "none");
+      name = $("#name").val();
+      socket.emit("add_player", {
+        name: $("#name").val(),
+        color: "#000000"
+      })
+
+      if(!($("#player_one_name").html() === "Waiting for player...")) {
+        $("#player-one-options").removeAttr("class");
+      }
+    
+      if($("#player_two_name").html() != "Waiting for player...") {
+        $("#player-two-options").removeAttr("class");
+      }
+    
+
+      
+      var player = {
+        name: name,
+        wins: 0,
+        losses: 0
+      }
+
+      $.ajax("/api/players", {
+        type: "POST",
+        data: player
+      }).then(
+        function() {
+          console.log("new player added");
+        }
+      )
+    }
   })
 });
 
@@ -40,6 +82,7 @@ $("#send").on("click", function () {
 //   // console.log("Socket.id: ", socket.id);
 // }
 
+// Captures keypress to send to server and all players
 $(document).on("keyup", function (data) {
   // console.log(data.key);
   socket.emit("keyPress", {
@@ -55,28 +98,28 @@ if (annyang) {
     'Left': function () {
       console.log("Left!");
       socket.emit("keyPress", {
-        keyPressed: "left",
+        keyPressed: "ArrowLeft",
         name: name
       })
     },
     'Right': () => {
       console.log("Right!")
       socket.emit("keyPress", {
-        keyPressed: "right",
+        keyPressed: "ArrowRight",
         name: name
       })
     },
     'Up': () => {
       console.log("Up!")
       socket.emit("keyPress", {
-        keyPressed: "up",
+        keyPressed: "ArrowUp",
         name: name
       })
     },
     'Down': () => {
       console.log("Down!")
       socket.emit("keyPress", {
-        keyPressed: "down",
+        keyPressed: "ArrowDown",
         name: name
       })
     },

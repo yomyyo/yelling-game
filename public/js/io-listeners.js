@@ -12,6 +12,8 @@ function addMessages(data) {
 
     //If the player one slot is till waiting for players
     if ($("#player_one_name").html() === "Waiting for player...") {
+
+        console.log("in if");
         //Change player one name slot to this player name
         $("#player_one_name").html(data.name);
         //Give this an id of blob-one
@@ -19,6 +21,15 @@ function addMessages(data) {
         // console.log($("#player_one_name").attr("name"));
         
         $("#player_one_id").html(data.id);
+
+
+
+            $("#player-one-options").removeAttr("class");
+  
+        
+      
+
+   
 
 
 
@@ -42,6 +53,8 @@ function addMessages(data) {
 
 
         $("#player_two_id").html(data.id);
+
+        $("#player-two-options").removeAttr("class");
     }
 }
 
@@ -59,7 +72,7 @@ socket.on("startGame", () => {
 
 
 
-
+// Listens for keypress data from server
 socket.on("keyPress", logKey);
 
 function logKey(data) {
