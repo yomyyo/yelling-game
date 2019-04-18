@@ -20,6 +20,7 @@ $("#start-btn").on("click", function () {
   $("#create-game").attr("class", "hidden");
   //Tell server to start the game
   socket.emit("startGame");
+  $("canvas").remove();
 })
 
 
