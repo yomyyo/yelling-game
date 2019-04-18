@@ -30,6 +30,19 @@
                 </div>
             </div>
         </div>
+
+        <div class="jumbotron py-0">
+            <h2>Leaderboard</h2>
+            <ul>
+                {{#each player}}
+                <li>
+                    <p>
+                        User: {{this.name}}, Wins: {{this.wins}}, Losses: {{this.losses}}
+                    </p>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
     </div>
 </div>
 

@@ -181,10 +181,10 @@ function create() {
   playerTwo.setScale(3);
 
   // movement logic
-  player.body.maxVelocity.set(160);
-  playerTwo.body.maxVelocity.set(160);
-  player.body.drag.set(150);
-  playerTwo.body.drag.set(150);
+  player.body.maxVelocity.set(1000);
+  playerTwo.body.maxVelocity.set(1000);
+  player.body.drag.set(2000);
+  playerTwo.body.drag.set(2000);
 
   // set so players cannot leave the bounds of the screen
   player.body.collideWorldBounds = true;
@@ -211,7 +211,7 @@ function create() {
 }
 
 
-
+// Listens for keypress data from server
 socket.on("testing", logKey);
 
 function logKey(data) {
@@ -236,25 +236,25 @@ function logKey(data) {
     //Logic for keypress
     switch (data.keyPressed) {
       case "ArrowUp" || "Up":
-        player.setVelocityY(-160);
+        player.setVelocityY(-700);
         // setTimeout(function () {
           // player.setVelocityY(0);
         // }, 50000)
         break;
       case "ArrowDown" || "Down":
-        player.setVelocityY(160);
+        player.setVelocityY(700);
         // setTimeout(function () {
         //   player.setVelocityY(0);
         // }, 50000)
         break;
       case "ArrowLeft" || "Left":
-        player.setVelocityX(-160);
+        player.setVelocityX(-700);
         // setTimeout(function () {
         //   player.setVelocityX(0);
         // }, 50000)
         break;
       case "ArrowRight" || "Right":
-        player.setVelocityX(160);
+        player.setVelocityX(700);
         // setTimeout(function () {
         //   player.setVelocityX(0);
         // }, 50000)
@@ -264,25 +264,25 @@ function logKey(data) {
     playerTwo.anims.play("walk", true);
     switch (data.keyPressed) {
       case "ArrowUp" || "Up":
-        playerTwo.setVelocityY(-160);
+        playerTwo.setVelocityY(-700);
         // setTimeout(function () {
         //   playerTwo.setVelocityY(0);
         // }, 50000)
         break;
       case "ArrowDown" || "Down":
-        playerTwo.setVelocityY(160);
+        playerTwo.setVelocityY(700);
         // setTimeout(function () {
         //   playerTwo.setVelocityY(0);
         // }, 50000)
         break;
       case "ArrowLeft" || "Left":
-        playerTwo.setVelocityX(-160);
+        playerTwo.setVelocityX(-700);
         // setTimeout(function () {
         //   playerTwo.setVelocityX(0);
         // }, 50000)
         break;
       case "ArrowRight" || "Right":
-        playerTwo.setVelocityX(160);
+        playerTwo.setVelocityX(700);
         // setTimeout(function () {
         //   playerTwo.setVelocityX(0);
         // }, 50000)
@@ -342,7 +342,49 @@ function update() {
       livesOne.setText("Player 1 Lives: " + p1Lives);
       stateText.text = "PLAYER 2 WINS";
       stateText.visible = true;
-      gameOver = true;
+      
+      var winPlayer;
+      var losePlayer;
+      $.get("/api/players", function (data) {
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].name == playerOneName) {
+            winPlayer = data[i];
+          }
+          if (data[i].name == playerTwoName) {
+            losePlayer = data[i];
+          }
+        }
+
+        var wins = losePlayer.wins + 1;
+        var newData = {
+          wins: wins
+        }
+
+        losses = winPlayer.losses + 1;
+        var losedata = {
+          losses: losses
+        }
+
+        $.ajax("/api/players/" + playerOneName, {
+          type: "PUT",
+          data: newData
+        }).then(
+          function () {
+            console.log("Player Two Wins");
+          }
+        )
+
+        $.ajax("/api/players/" + playerTwoName, {
+          type: "PUT",
+          data: losedata
+        }).then(
+          function () {
+            console.log("Player One Lose");
+          }
+        )
+        gameOver = true;
+        $("#end-game").removeAttr("class");
+      })
     }
   }
 
@@ -357,7 +399,47 @@ function update() {
       livesTwo.setText("Player 2 Lives: " + p2Lives);
       stateText.text = "PLAYER 1 WINS";
       stateText.visible = true;
-      gameOver = true;
+
+      var winPlayer;
+      var losePlayer;
+      $.get("/api/players", function (data) {
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].name == playerOneName) {
+            winPlayer = data[i];
+          }
+          if (data[i].name == playerTwoName) {
+            losePlayer = data[i];
+          }
+        }
+
+        var newData = {
+          wins: winPlayer.wins + 1
+        }
+
+        var losedata = {
+          losses: losePlayer.losses + 1
+        }
+
+        $.ajax("/api/players/" + playerOneName, {
+          type: "PUT",
+          data: newData
+        }).then(
+          function () {
+            console.log("Player One Wins");
+          }
+        )
+
+        $.ajax("/api/players/" + playerTwoName, {
+          type: "PUT",
+          data: losedata
+        }).then(
+          function () {
+            console.log("Player Two Lose");
+          }
+        )
+        gameOver = true;
+        $("#end-game").removeAttr("class");
+      })
     }
   }
 
