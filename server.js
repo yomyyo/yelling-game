@@ -104,6 +104,14 @@ io.on("connection", function (socket) {
     io.sockets.emit("startGame");
   })
 
+  socket.on("playerOneChange", function(data) {
+    console.log("data", data);
+    io.sockets.emit("changedPlayerOne", data)
+  })
+  socket.on("playerTwoChange", function(data) {
+    io.sockets.emit("changedPlayerTwo", data)
+  })
+
     // io.sockets.emit("receive_player", data);
     // console.log("data.name: ", data.name);
 
