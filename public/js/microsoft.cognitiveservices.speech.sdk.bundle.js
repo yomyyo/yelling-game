@@ -13241,4 +13241,4 @@ exports.ProxyInfo = ProxyInfo;
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=./microsoft.cognitiveservices.speech.sdk.bundle.js.map
+//# sourceMappingURL=microsoft.cognitiveservices.speech.sdk.bundle.js.map
