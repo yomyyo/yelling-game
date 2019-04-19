@@ -183,7 +183,7 @@ $(document).on("keyup", function (data) {
 // var startRecognizeOnceAsyncButton;
 
 // subscription key and region for speech services.
-var subscriptionKey = "4b17c7cf3aa949caa36665c6091d20cf"
+var subscriptionKey = ""
 var serviceRegion = "westus";
 var authorizationToken;
 var SpeechSDK;
