@@ -183,21 +183,17 @@ $(document).on("keyup", function (data) {
 // var startRecognizeOnceAsyncButton;
 
 // subscription key and region for speech services.
-var subscriptionKey = ""
+var subscriptionKey = "6333ca6a1f24427cbdc818c58bded4a7"
 var serviceRegion = "westus";
 var authorizationToken;
 var SpeechSDK;
 var recognizer;
+var oldLength = 0;
+var newWords;
 
 document.addEventListener("DOMContentLoaded", function () {
-  // startRecognizeOnceAsyncButton = document.getElementById("startRecognizeOnceAsyncButton");
-  // subscriptionKey = document.getElementById("subscriptionKey");
-  // serviceRegion = document.getElementById("serviceRegion");
-  // phraseDiv = document.getElementById("phraseDiv");
 
   $("#start-btn").on("click", function () {
-    // startRecognizeOnceAsyncButton.disabled = true;
-    // phraseDiv.innerHTML = "";
     var keyWords = ["up", "down", "left", "right"];
     var keyPress = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
 
@@ -218,29 +214,49 @@ document.addEventListener("DOMContentLoaded", function () {
     recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
 
 
+    // Listener for final results
+    recognizer.recognized = (r, event) => {
+      // phrase is done, reset oldLength
+      oldLength = 0;     
+      console.log("Clearing old length");
+    }
+
     // Listener for partial results
     recognizer.recognizing = (r, event) => {
+      // convert result string to array of words
       var result = event.privResult.privText.split(" ");
-      console.log(result);
-
-      for (var i = 0; i < 2; i++) {
-        var index = keyWords.indexOf(result[i]);
-        console.log("index:", index)
-        if (index !== -1) {
-          console.log("Keyword found:", result[i]);
-          // do emit
-          socket.emit("keyPress", {
-            keyPressed: keyPress[index],
-            name: name
-          })
+      console.log("partial result:", result)
+      var extracted = [];
+     
+      // push keywords to extracted array
+      for (var i = 0; i < result.length; i++) {
+        if (result[i] === "write"){
+          result[i] = "right";
+        }
+        if (keyWords.indexOf(result[i]) !== -1) {
+          extracted.push(result[i])
         }
       }
-      //stop and restart speech recognition so any further keyword registers individually
-      // recognizer.stopContinuousRecognitionAsync();
-      // recognizer.startContinuousRecognitionAsync();
+      console.log("extracted:", extracted);
 
+      // console.log("oldLength:", oldLength)
+      // console.log("extracted length:", extracted.length);
+      // console.log("newWords:", newWords);
+
+      // loop over extracted words, emit on new ones
+      for (var i = 0; i < extracted.length; i++) {
+        var index = keyWords.indexOf(extracted[i]);
+        console.log("Keyword found:", extracted[i]);
+        // do emit
+        socket.emit("keyPress", {
+          keyPressed: keyPress[index],
+          name: name
+        })
+      }
+
+      // store the length of current result 
+      // oldLength = extracted.length;
     };
-
     // Starts speech recognition
     recognizer.startContinuousRecognitionAsync();
   });
