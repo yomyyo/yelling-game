@@ -1,8 +1,14 @@
 var socket = io();
+var playerOneColor;
 
-socket.on("test", function () {
-  console.log()
-})
+socket.on("changedPlayerOne", function(data){
+  console.log("TEST");
+  playerOneColor = data.playerOneColor;
+});
+
+// console.log(playerOneColor);
+
+
 
 /* eslint-disable linebreak-style */
 // Setings for the game
@@ -64,15 +70,15 @@ var livesTwo;
 //Contain player's blobs
 var blobs = [];
 
-socket.on("receive_player", addBlobs);
+// socket.on("receive_player", addBlobs);
 
-console.log("TESTING IN GAME.JS");
-console.log("BLobs: ", blobs);
+// console.log("TESTING IN GAME.JS");
+// console.log("BLobs: ", blobs);
 
-function addBlobs(data) {
-  blobs.push(data);
-  console.log("Blobs: ", data)
-}
+// function addBlobs(data) {
+//   blobs.push(data);
+//   console.log("Blobs: ", data)
+// }
 
 
 // preload assets before the game starts
@@ -241,6 +247,7 @@ function create() {
 
 socket.on("updateLocation", logKey);
 
+
 function logKey(data) {
   // console.log("playerId: ", socket.id);
   console.log("Key Data: ", data.keyPressed);
@@ -262,6 +269,8 @@ function logKey(data) {
   if (data.name === playerOneName) {
 
     console.log("in player one");
+
+    console.log("p1c", playerOneColor)
 
     switch (playerOneColor) {
       case "red":
@@ -310,6 +319,8 @@ function logKey(data) {
         break;
     }
   } else {
+
+    //Player Two
 
     switch (playerTwoColor) {
       case "red":

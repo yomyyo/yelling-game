@@ -35,6 +35,9 @@ $(".color-btn").on("click", function () {
     case "p2-red":
       $("#player-two-img").attr("src", "/images/redBlob.jpg")
       playerTwoColor = "red";
+      socket.emit("playerTwoChange", {
+        playerTwoColor: "red"
+      })
       break;
     case "p1-blue":
       $("#player-one-img").attr("src", "/images/blueBlob.jpg")
@@ -61,7 +64,10 @@ $(".color-btn").on("click", function () {
       playerTwoColor = "yellow";
       break;
   }
+  // console.log("p1 color: ", playerOneColor)
 })
+
+
 
 
 
@@ -122,12 +128,26 @@ $("#send").on("click", function () {
 
 // Captures keypress to send to server and all players
 $(document).on("keyup", function (data) {
+
+  // var playerOneRealColor;
+  // var playerTwoRealColor;
+
+  // socket.on("changedPlayerOne", function(data) {
+  //   playerOneRealColor = data.playerOneColor
+  // })
+  // socket.on("changedPlayerTwo", function(data) {
+  //   playerTwoRealColor = data.playerTwoColor
+  // })
+
+
+  // console.log("p1 colro: ", playerOneRealColor);
+  // console.log("p2 colro: ", playerTwoRealColor);
   // console.log(data.key);
   socket.emit("keyPress", {
     keyPressed: data.key,
     name: name,
-    playerOneColor: playerOneColor,
-    playerTwoColor: playerTwoColor
+    // playerOneColor: playerOneColor,
+    // playerTwoColor: playerTwoColor
   })
 })
 
