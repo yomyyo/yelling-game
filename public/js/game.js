@@ -310,7 +310,21 @@ function logKey(data) {
         break;
     }
   } else {
-    playerTwo.anims.play("walk-blue", true);
+
+    switch (playerTwoColor) {
+      case "red":
+        playerTwo.anims.play("walk-red", true);
+        break;
+      case "blue":
+      playerTwo.anims.play("walk-blue", true);
+        break;
+      case "green":
+      playerTwo.anims.play("walk-green", true);
+        break;
+      case "yellow":
+      playerTwo.anims.play("walk-yellow", true);
+        break;
+    }
     switch (data.keyPressed) {
       case "ArrowUp" || "Up":
         playerTwo.setVelocityY(-700);
