@@ -45,13 +45,37 @@ var c = canvas.getContext("2d");
 // c.strokeStyle = "blue";
 // c.stroke();
 
+//Generate random color for blobs
+function generateColor() {
+    var num = Math.floor(Math.random() * 4);
+    var color;
 
-function Circle(x, y, dx, dy, radius) {
+    switch (num) {
+        case 0:
+            color = "rgba(0, 0, 255, 0.5)";
+            break;
+        case 1:
+            color = "rgba(0, 255, 0, 0.5)";
+            break;
+        case 2:
+            color = "rgba(255, 0, 0, 0.5)";
+            break;
+        case 3:
+            color = "rgba(57, 255, 20, 0.5)";
+            break
+    }
+    return color
+}
+
+
+
+function Circle(x, y, dx, dy, radius, color) {
     this.x = x;
     this.y = y;
     this.dx = dx;
     this.dy = dy;
-    this.radius = radius
+    this.radius = radius;
+    this.color = color;
 
     this.draw = function () {
         //tell the canvas to start the path
@@ -89,12 +113,13 @@ function Circle(x, y, dx, dy, radius) {
 var circleArray = [];
 
 for (var i = 0; i < 100; i++) {
+    color = generateColor();
     var radius = 30;
     var x = Math.random() * (innerWidth - radius * 2) + radius;
     var y = Math.random() * (innerHeight - radius * 2) + radius;
     var dx = (Math.random() - 0.5) * 5;
     var dy = (Math.random() - 0.5) * 5;
-    circleArray.push(new Circle(x, y, dx, dy, radius));
+    circleArray.push(new Circle(x, y, dx, dy, radius, color));
 }
 
 
