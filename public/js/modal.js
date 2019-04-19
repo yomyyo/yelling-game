@@ -151,43 +151,130 @@ $(document).on("keyup", function (data) {
   })
 })
 
+// ***********************
+// BAD VOICE CONTROL
+// ***********************
+// if (annyang) {
+//   // Let's define our first command. First the text we expect, and then the function it should call
+//   var commands = {
+//     'Left': function () {
+//       console.log("Left!");
+//       socket.emit("keyPress", {
+//         keyPressed: "ArrowLeft",
+//         name: name
+//       })
+//     },
+//     'Right': () => {
+//       console.log("Right!")
+//       socket.emit("keyPress", {
+//         keyPressed: "ArrowRight",
+//         name: name
+//       })
+//     },
+//     'Up': () => {
+//       console.log("Up!")
+//       socket.emit("keyPress", {
+//         keyPressed: "ArrowUp",
+//         name: name
+//       })
+//     },
+//     'Down': () => {
+//       console.log("Down!")
+//       socket.emit("keyPress", {
+//         keyPressed: "ArrowDown",
+//         name: name
+//       })
+//     },
+//   };
 
-if (annyang) {
-  // Let's define our first command. First the text we expect, and then the function it should call
-  var commands = {
-    'Left': function () {
-      console.log("Left!");
-      socket.emit("keyPress", {
-        keyPressed: "ArrowLeft",
-        name: name
-      })
-    },
-    'Right': () => {
-      console.log("Right!")
-      socket.emit("keyPress", {
-        keyPressed: "ArrowRight",
-        name: name
-      })
-    },
-    'Up': () => {
-      console.log("Up!")
-      socket.emit("keyPress", {
-        keyPressed: "ArrowUp",
-        name: name
-      })
-    },
-    'Down': () => {
-      console.log("Down!")
-      socket.emit("keyPress", {
-        keyPressed: "ArrowDown",
-        name: name
-      })
-    },
-  };
+//   // Add our commands to annyang
+//   annyang.addCommands(commands);
 
-  // Add our commands to annyang
-  annyang.addCommands(commands);
+//   // Start listening. You can call this here, or attach this call to an event, button, etc.
+//   annyang.start();
+// }
 
-  // Start listening. You can call this here, or attach this call to an event, button, etc.
-  annyang.start();
-}
+// ******************
+// GOOD VOICE CONTROL
+// ******************
+
+// status fields and start button in UI
+// var phraseDiv;
+// var startRecognizeOnceAsyncButton;
+
+// subscription key and region for speech services.
+var subscriptionKey = ""
+var serviceRegion = "westus";
+var authorizationToken;
+var SpeechSDK;
+var recognizer;
+
+document.addEventListener("DOMContentLoaded", function () {
+  // startRecognizeOnceAsyncButton = document.getElementById("startRecognizeOnceAsyncButton");
+  // subscriptionKey = document.getElementById("subscriptionKey");
+  // serviceRegion = document.getElementById("serviceRegion");
+  // phraseDiv = document.getElementById("phraseDiv");
+
+  $("#start-btn").on("click", function () {
+    // startRecognizeOnceAsyncButton.disabled = true;
+    // phraseDiv.innerHTML = "";
+    var keyWords = ["up", "down", "left", "right"];
+    var keyPress = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
+
+    // if we got an authorization token, use the token. Otherwise use the provided subscription key
+    var speechConfig;
+    if (authorizationToken) {
+      speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(authorizationToken, serviceRegion.value);
+    } else {
+      if (subscriptionKey === "" || subscriptionKey === "subscription") {
+        alert("Please enter your Microsoft Cognitive Services Speech subscription key!");
+        return;
+      }
+      speechConfig = SpeechSDK.SpeechConfig.fromSubscription(subscriptionKey, serviceRegion);
+    }
+
+    speechConfig.speechRecognitionLanguage = "en-US";
+    var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+    recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
+
+
+    // Listener for partial results
+    recognizer.recognizing = (r, event) => {
+      var result = event.privResult.privText.split(" ");
+      console.log(result);
+
+      for (var i = 0; i < 2; i++) {
+        var index = keyWords.indexOf(result[i]);
+        console.log("index:", index)
+        if (index !== -1) {
+          console.log("Keyword found:", result[i]);
+          // do emit
+          socket.emit("keyPress", {
+            keyPressed: keyPress[index],
+            name: name
+          })
+        }
+      }
+      //stop and restart speech recognition so any further keyword registers individually
+      // recognizer.stopContinuousRecognitionAsync();
+      // recognizer.startContinuousRecognitionAsync();
+
+    };
+
+    // Starts speech recognition
+    recognizer.startContinuousRecognitionAsync();
+  });
+
+  if (!!window.SpeechSDK) {
+    SpeechSDK = window.SpeechSDK;
+    // startRecognizeOnceAsyncButton.disabled = false;
+
+    // document.getElementById('content').style.display = 'block';
+    // document.getElementById('warning').style.display = 'none';
+
+    // in case we have a function for getting an authorization token, call it.
+    if (typeof RequestAuthorizationToken === "function") {
+      RequestAuthorizationToken();
+    }
+  }
+});
