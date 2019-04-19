@@ -7,6 +7,7 @@ The twist is that you have to control your blob with your voice; shout at it (up
 
 * Javascript
 * Jquery
+* Handlebars
 * Mysql
 * Sequelize
 * Node
