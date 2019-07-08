@@ -3,16 +3,17 @@ var name;
 var playerOneColor;
 var playerTwoColor;
 
-
-
+//On click to join the game lobby
 $("#join-btn").on("click", function () {
   $(".bg-modal").css("display", "flex");
 });
 
+//On click to close modal
 $(".close").on("click", function () {
   $(".bg-modal").css("display", "none");
 });
 
+//On click to start game
 $("#start-btn").on("click", function () {
   // var gameScript = document.createElement('script');
   // gameScript.setAttribute('src', 'js/game.js');
@@ -22,8 +23,7 @@ $("#start-btn").on("click", function () {
   socket.emit("startGame");
 })
 
-
-
+//On click to change blob color
 $(".color-btn").on("click", function () {
   console.log($(this).attr("id"));
 
@@ -62,11 +62,6 @@ $(".color-btn").on("click", function () {
       break;
   }
 })
-
-
-
-
-
 
 // on click to trigger socket.io(add_player)
 $("#send").on("click", function () {
@@ -112,14 +107,6 @@ $("#send").on("click", function () {
   })
 });
 
-// socket.on("receive_player", addMessages);
-
-// function addMessages(data) {
-//   console.log("Add Messages Data", data);
-
-//   // console.log("Socket.id: ", socket.id);
-// }
-
 // Captures keypress to send to server and all players
 $(document).on("keyup", function (data) {
   // console.log(data.key);
@@ -131,7 +118,7 @@ $(document).on("keyup", function (data) {
   })
 })
 
-
+//Listener for auido directions
 if (annyang) {
   // Let's define our first command. First the text we expect, and then the function it should call
   var commands = {

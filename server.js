@@ -29,7 +29,6 @@ require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
 
 var syncOptions = { force: false };
-
 // If running a test, set syncOptions.force to true
 // clearing the `testdb`
 if (process.env.NODE_ENV === "test") {
@@ -38,20 +37,6 @@ if (process.env.NODE_ENV === "test") {
 
 //Set up socket.io connection
 io.on("connection", function (socket) {
-
-  var blobs = []
-
-  function Blob (id, name, x, y, color, lifeCounter) {
-    this.id = id;
-    this.name = name;
-    this.x = x;
-    this.y = y;
-    this.color = color;
-    this.lifeCounter = lifeCounter;
-  }
-  
-  //Log that a connection was made with a socket
-  // console.log("Made socket connection: ", socket.id);
 
   //Fire off when player is added
   socket.on("add_player", function(data) {
@@ -67,24 +52,24 @@ io.on("connection", function (socket) {
   });
 
   //Fires when the blob's values get updated
-  socket.on("update", function(data) {
+  // socket.on("update", function(data) {
 
-    var blob;
-    //Loop through all blobs
-    for(var i = 0; i < blobs.length; i++) {
+  //   var blob;
+  //   //Loop through all blobs
+  //   for(var i = 0; i < blobs.length; i++) {
 
-      //select a blob that has a matching id with the user
-      if(socket.id === blobs[i].id) {
-        blob = blobs[i];
-      }
-      // console.log("92 " ,blob.name);
-    }
-    // blob.name = data.name;
-    // console.log("94 " ,blob);
-    // console.log(blob.name + "" + data.keyPressed);
+  //     //select a blob that has a matching id with the user
+  //     if(socket.id === blobs[i].id) {
+  //       blob = blobs[i];
+  //     }
+  //     // console.log("92 " ,blob.name);
+  //   }
+  //   // blob.name = data.name;
+  //   // console.log("94 " ,blob);
+  //   // console.log(blob.name + "" + data.keyPressed);
 
 
-  });
+  // });
 
   //Fires off on keypress
   socket.on("keyPress", function(data) {
@@ -93,36 +78,17 @@ io.on("connection", function (socket) {
   });
 
 
-  //Listen for game position update
-  socket.on("tellServerPosition", function(data) {
+  // //Listen for game position update
+  // socket.on("tellServerPosition", function(data) {
    
-  })
+  // })
   
   //Listener for startGame call
   socket.on("startGame", function() {
     //Tell all clients to start game
     io.sockets.emit("startGame");
   })
-
-    // io.sockets.emit("receive_player", data);
-    // console.log("data.name: ", data.name);
-
-    // Assign player one and two names when they join the game
-    // if (playerArr.length === 0) {
-    //   playerArr.push(data.name)
-    //   console.log("player Array: ", playerArr)
-    // } else if (playerArr.length === 1) {
-    //   playerArr.push(data.name)
-    // }
   });
-
-  // socket.on("player_key", function(data) {
-  //   io.sockets.emit("player_key", data);
-  //   // console.log("Key pressed: ", data);
-  // })
-
-// })
-
 
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync(syncOptions).then(function () {
