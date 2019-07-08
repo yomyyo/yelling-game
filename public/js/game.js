@@ -1,4 +1,13 @@
 var socket = io();
+var playerOneColor;
+
+socket.on("changedPlayerOne", function(data){
+  console.log("TEST");
+  playerOneColor = data.playerOneColor;
+});
+
+// console.log(playerOneColor);
+
 
 /* eslint-disable linebreak-style */
 // Setings for the game
@@ -29,6 +38,10 @@ var config = {
     arcade: {
       debug: false
     }
+  },
+  scale: {
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH
   },
   scene: {
     preload: preload,
@@ -204,11 +217,14 @@ function create() {
 
 socket.on("updateLocation", logKey);
 
+
 function logKey(data) {
 
   if (data.name === playerOneName) {
 
     console.log("in player one");
+
+    console.log("p1c", playerOneColor)
 
     switch (playerOneColor) {
       case "red":
@@ -257,7 +273,23 @@ function logKey(data) {
         break;
     }
   } else {
-    playerTwo.anims.play("walk-blue", true);
+
+    //Player Two
+
+    switch (playerTwoColor) {
+      case "red":
+        playerTwo.anims.play("walk-red", true);
+        break;
+      case "blue":
+      playerTwo.anims.play("walk-blue", true);
+        break;
+      case "green":
+      playerTwo.anims.play("walk-green", true);
+        break;
+      case "yellow":
+      playerTwo.anims.play("walk-yellow", true);
+        break;
+    }
     switch (data.keyPressed) {
       case "ArrowUp" || "Up":
         playerTwo.setVelocityY(-700);
