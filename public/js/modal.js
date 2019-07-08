@@ -35,6 +35,9 @@ $(".color-btn").on("click", function () {
     case "p2-red":
       $("#player-two-img").attr("src", "/images/redBlob.jpg")
       playerTwoColor = "red";
+      socket.emit("playerTwoChange", {
+        playerTwoColor: "red"
+      })
       break;
     case "p1-blue":
       $("#player-one-img").attr("src", "/images/blueBlob.jpg")
@@ -61,6 +64,7 @@ $(".color-btn").on("click", function () {
       playerTwoColor = "yellow";
       break;
   }
+  // console.log("p1 color: ", playerOneColor)
 })
 
 // on click to trigger socket.io(add_player)
@@ -109,12 +113,26 @@ $("#send").on("click", function () {
 
 // Captures keypress to send to server and all players
 $(document).on("keyup", function (data) {
+
+  // var playerOneRealColor;
+  // var playerTwoRealColor;
+
+  // socket.on("changedPlayerOne", function(data) {
+  //   playerOneRealColor = data.playerOneColor
+  // })
+  // socket.on("changedPlayerTwo", function(data) {
+  //   playerTwoRealColor = data.playerTwoColor
+  // })
+
+
+  // console.log("p1 colro: ", playerOneRealColor);
+  // console.log("p2 colro: ", playerTwoRealColor);
   // console.log(data.key);
   socket.emit("keyPress", {
     keyPressed: data.key,
     name: name,
-    playerOneColor: playerOneColor,
-    playerTwoColor: playerTwoColor
+    // playerOneColor: playerOneColor,
+    // playerTwoColor: playerTwoColor
   })
 })
 
@@ -152,9 +170,96 @@ if (annyang) {
     },
   };
 
-  // Add our commands to annyang
-  annyang.addCommands(commands);
+// subscription key and region for speech services.
+var subscriptionKey = "d32b626379a64026b426eb0b08b1000b"
+var serviceRegion = "westus";
+var authorizationToken;
+var SpeechSDK;
+var recognizer;
+var oldLength = 0;
+var newWords;
 
-  // Start listening. You can call this here, or attach this call to an event, button, etc.
-  annyang.start();
-}
+document.addEventListener("DOMContentLoaded", function () {
+
+  $("#start-btn").on("click", function () {
+    var keyWords = ["up", "down", "left", "right"];
+    var keyPress = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
+
+    // if we got an authorization token, use the token. Otherwise use the provided subscription key
+    var speechConfig;
+    if (authorizationToken) {
+      speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(authorizationToken, serviceRegion.value);
+    } else {
+      if (subscriptionKey === "" || subscriptionKey === "subscription") {
+        alert("Please enter your Microsoft Cognitive Services Speech subscription key!");
+        return;
+      }
+      speechConfig = SpeechSDK.SpeechConfig.fromSubscription(subscriptionKey, serviceRegion);
+    }
+
+    speechConfig.speechRecognitionLanguage = "en-US";
+    var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+    recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
+
+
+    // Listener for final results
+    recognizer.recognized = (r, event) => {
+      // phrase is done, reset oldLength
+      oldLength = 0;     
+      console.log("Clearing old length");
+    }
+
+    // Listener for partial results
+    recognizer.recognizing = (r, event) => {
+      // convert result string to array of words
+      var result = event.privResult.privText.split(" ");
+      console.log("partial result:", result)
+      var extracted = [];
+     
+      // push keywords to extracted array
+      for (var i = 0; i < result.length; i++) {
+        if (result[i] === "write"){
+          result[i] = "right";
+        }
+        if (keyWords.indexOf(result[i]) !== -1) {
+          extracted.push(result[i])
+        }
+      }
+      console.log("extracted:", extracted);
+
+      // console.log("oldLength:", oldLength)
+      // console.log("extracted length:", extracted.length);
+      // console.log("newWords:", newWords);
+
+      // loop over extracted words, emit on new ones
+      for (var i = 0; i < extracted.length; i++) {
+        var index = keyWords.indexOf(extracted[i]);
+        console.log("Keyword found:", extracted[i]);
+        // do emit
+        socket.emit("keyPress", {
+          keyPressed: keyPress[index],
+          name: name
+        })
+      }
+
+      // store the length of current result 
+      // oldLength = extracted.length;
+    };
+    // Starts speech recognition
+    recognizer.startContinuousRecognitionAsync();
+  });
+
+  if (!!window.SpeechSDK) {
+    SpeechSDK = window.SpeechSDK;
+    // startRecognizeOnceAsyncButton.disabled = false;
+
+    // document.getElementById('content').style.display = 'block';
+    // document.getElementById('warning').style.display = 'none';
+
+    // in case we have a function for getting an authorization token, call it.
+    if (typeof RequestAuthorizationToken === "function") {
+      RequestAuthorizationToken();
+    }
+  }
+})
+};

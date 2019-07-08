@@ -1,4 +1,5 @@
 var socket = io();
+var playerOneColor;
 // console.log("Socket ID:" + socket.id);
 
 socket.on("receive_player", addMessages);
@@ -46,6 +47,9 @@ function addMessages(data) {
         $("#player_two_id").html(data.id);
 
         $("#player-two-options").removeAttr("class");
+
+        $("#start-btn").removeClass("hidden");
+        $("#join-btn").attr("class", "hidden");
     }
 }
 
@@ -57,6 +61,14 @@ socket.on("startGame", () => {
     document.body.appendChild(gameScript);
     // $("#create-game").attr("class", "hidden");
 
+    $("canvas").remove();
+
+
+    console.log(playerOneColor);
+
+    socket.emit("playerOneChange", {
+        playerOneColor: "red"
+      })
 })
 
 // Listens for keypress data from server
@@ -86,4 +98,10 @@ function logKey(data) {
         $(".player_two_keypress").html(data.keyPressed + " was pressed");
     }
 }
+
+// socket.on("playerOneChange", test);
+
+// function test(data) {
+//     console.log("WE MADE IT");
+// }
 
