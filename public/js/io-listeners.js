@@ -19,19 +19,10 @@ function addMessages(data) {
         //Give this an id of blob-one
         $("#player_one_name").attr("name", data.name);
         // console.log($("#player_one_name").attr("name"));
-        
+
         $("#player_one_id").html(data.id);
 
-
-
-            $("#player-one-options").removeAttr("class");
-  
-        
-      
-
-   
-
-
+        $("#player-one-options").removeAttr("class");
 
         // console.log(data.id);
         // $(".player_one_keypress").attr("id", data.id);
@@ -58,19 +49,15 @@ function addMessages(data) {
     }
 }
 
-
 // Listener for server to tell us to start game
 socket.on("startGame", () => {
     //Load game.js
     var gameScript = document.createElement('script');
     gameScript.setAttribute('src', 'js/game.js');
     document.body.appendChild(gameScript);
-    $("#create-game").attr("class", "hidden");
+    // $("#create-game").attr("class", "hidden");
 
 })
-
-
-
 
 // Listens for keypress data from server
 socket.on("keyPress", logKey);
