@@ -1,7 +1,5 @@
 require("dotenv").config();
 
-console.log("ENV VAR:", process.env.GOOGLE_APPLICATION_CREDENTIALS)
-
 // ********************TESTING SPEECH ENGINE******************* //
 
 const record = require('node-record-lpcm16');

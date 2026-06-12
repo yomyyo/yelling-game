@@ -1,24 +1,25 @@
-# Blobber Royale!
-The one and only game that features sumo fighting blobs! It's the blobber-dome: two blobs enter, one blob leaves! Appease the blob gods with ritual combat, and may the blobs be ever in your favor!
+# Blobber Royale
 
-The twist is that you have to control your blob with your voice; shout at it (up, down, left, right) and knock your opponent out of the arena! Normal key presses are still turned on for easy testing, but they'll be deactivated when it's finally Blobbering Time.
+Blobber Royale is a real-time two-player arena game controlled by voice commands. Players shout directions to move their blob and knock the other player out of the arena. Keyboard controls remain available for local testing.
 
-### Notable Technologies Used
+## Stack
 
-* Javascript
-* Jquery
-* Handlebars
-* Mysql
-* Sequelize
-* Node
-* Socket.io
-* Phaser.io
-* Microsoft Azure Speech to Text SDK
-* Heroku
+Node.js, Express, Handlebars, Socket.IO, Phaser, Sequelize, MySQL, and speech-recognition integrations.
 
-### Bugs and Weird Things
+## Local Setup
 
-Voice recognition controls are still not quite perfect; it lags, and isn't as reliable as we would like it to be. Currently, only two players are supported, but we are going to scale it up, which shouldn't be too difficult with sockets. Same for game instances; right now only a single instance runs, but we can scale that up as well.
+1. Run `npm install`.
+2. Copy `.env.example` to `.env`.
+3. Create the configured MySQL database.
+4. If testing Google Cloud Speech, create a new service-account key at `credentials/service-account.json`.
+5. Run `npm start`.
 
-### Demo
-[![blob-demo.gif](https://s2.gifyu.com/images/blob-demo.gif)](https://gifyu.com/image/9S6v)
+Database passwords, `.env`, and cloud credential files are ignored by Git. Production can use `JAWSDB_URL` for its Sequelize connection.
+
+## Notes
+
+The prototype supports two players and a single game instance. Voice recognition latency and accuracy depend on the speech provider and microphone setup.
+
+## Security
+
+Never commit speech-provider credentials. Revoke any cloud key previously exposed in repository history before creating a replacement.
